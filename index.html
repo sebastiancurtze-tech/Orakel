@@ -96,7 +96,13 @@ button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid transpare
 .prop{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:3px}
 .prop .meta{font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mist)}
 .hits{color:var(--ember);font-weight:700;font-variant-numeric:tabular-nums}
+.toggles{display:flex;gap:8px;flex-wrap:wrap}
+.toggle{flex:1;display:flex;justify-content:space-between;align-items:center;gap:8px;background:transparent;color:var(--mist);border:1px solid var(--line);font-weight:500;font-size:.88rem;padding:9px 12px}
+.toggle b{color:var(--mist);font-weight:700}
+.toggle[aria-pressed="true"] b{color:var(--brass)}
 @media (prefers-reduced-motion:no-preference){
+  .hero.due svg{animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{filter:drop-shadow(0 8px 24px rgba(150,110,220,.35))}50%{filter:drop-shadow(0 0 34px rgba(230,200,120,.95))}}
   .hero svg .swirl{transform-origin:60px 56px;animation:spin 18s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
   .reveal{animation:glow .5s ease-out}
@@ -243,7 +249,7 @@ let state, ui = {view:null};
 const KEY = "orakel-v2";
 const INTERVALS = [15,30,45,60,0];
 function fresh(players){ return {phase:"setup", players:(players||[]).map(resetPlayer), interval:30, sips:1, cursesOn:true, round:0, nextAt:null,
-  prophecies:[], write:null, curses:[], usedCurses:[], log:[]}; }
+  prophecies:[], write:null, curses:[], usedCurses:[], log:[], keepAwake:true, gong:true, dueNotified:false}; }
 function resetPlayer(p){ return Object.assign(p, {drink:0, hits:0, solved:0, wrong:0, curseUsed:false}); }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
 function load(){ try{ const s = JSON.parse(localStorage.getItem(KEY)); if(s && s.phase) return s; }catch(e){} return null; }
@@ -256,7 +262,8 @@ const active = () => state.prophecies.filter(x => x.status === "active");
 const aboutVictim = id => active().filter(x => x.target === id);
 function addLog(html){ state.log.unshift(html); state.log = state.log.slice(0,40); }
 function go(v){ ui = v; render(); window.scrollTo(0,0); }
-const hero = small => `<div class="hero ${small ? "small-hero" : ""}">${BALL}<h1>Orakel</h1>${small ? "" : `<p class="muted">Jeder kennt das Schicksal, nur das Opfer nicht.</p>`}</div>`;
+const isDue = () => state && state.phase === "play" && state.interval && state.nextAt && Date.now() >= state.nextAt;
+const hero = small => `<div class="hero ${small ? "small-hero" : ""} ${isDue() ? "due" : ""}">${BALL}<h1>Orakel</h1>${small ? "" : `<p class="muted">Jeder kennt das Schicksal, nur das Opfer nicht.</p>`}</div>`;
 const fmtMin = ms => { const m = Math.max(0, Math.ceil(ms/60000)); return m === 1 ? "1 Minute" : `${m} Minuten`; };
 
 /* ---------- Schreibrunde: jeder wählt ein Opfer, gewählte fallen raus ---------- */
@@ -288,6 +295,7 @@ function render(){
   else if(state.phase === "play") h = ui.view ? vFlow() : vTable();
   else h = vEnd();
   document.getElementById("app").innerHTML = h;
+  syncWakeLock();
   const f = document.querySelector("[autofocus]"); if(f) f.focus();
   save();
 }
@@ -362,6 +370,10 @@ function vTable(){
   const casters = curseCasters();
   return `${hero(true)}
   ${timerBox()}
+  <div class="toggles">
+    <button class="toggle" data-act="awake" aria-pressed="${state.keepAwake !== false}">Bildschirm an <b>${state.keepAwake !== false ? "An" : "Aus"}</b></button>
+    ${state.interval ? `<button class="toggle" data-act="gong" aria-pressed="${state.gong !== false}">Gong <b>${state.gong !== false ? "An" : "Aus"}</b></button>` : ""}
+  </div>
   <div class="grid2">
     <button class="btn big b-orakel" data-act="orakel">Orakel!</button>
     <button class="btn big b-guess" data-act="guess">Durchschaut!</button>
@@ -502,7 +514,7 @@ document.addEventListener("click", e => {
       w.taken.push(target); w.idx++;
       if(w.idx >= w.order.length){
         state.write = null; state.phase = "play";
-        state.nextAt = state.interval ? Date.now() + state.interval*60000 : null;
+        state.nextAt = state.interval ? Date.now() + state.interval*60000 : null; state.dueNotified = false;
         addLog(state.round === 1 ? "Alle Prophezeiungen sind versiegelt. Das Orakel wacht." : `Runde ${state.round}: neue Prophezeiungen sind im Spiel.`);
       }
       go({view:null}); break;
@@ -510,11 +522,13 @@ document.addEventListener("click", e => {
     case "postpone": {
       const w = state.write;
       state.prophecies = state.prophecies.filter(x => x.round !== state.round);
-      state.round--; state.write = null; state.phase = "play"; state.nextAt = Date.now() + 10*60000;
+      state.round--; state.write = null; state.phase = "play"; state.nextAt = Date.now() + 10*60000; state.dueNotified = false;
       if(w && w.idx) addLog("Die neue Runde wurde verschoben.");
       go({view:null}); break;
     }
     case "newround": startWriteRound(); break;
+    case "awake": state.keepAwake = state.keepAwake === false; syncWakeLock(); render(); break;
+    case "gong": state.gong = state.gong === false; if(state.gong) playGong(); render(); break;
     case "orakel": go({view:"o-victim"}); break;
     case "o-pick": go({view:"o-hide", victim:id}); break;
     case "o-show": go({view:"o-show", victim:ui.victim}); break;
@@ -562,7 +576,57 @@ document.addEventListener("click", e => {
     case "back": go({view: state.phase === "write" ? null : null}); break;
   }
 });
-setInterval(() => { if(state && state.phase === "play" && !ui.view) render(); }, 20000);
+/* ---------- Gong, Vibration und wacher Bildschirm ---------- */
+let audioCtx = null;
+function unlockAudio(){
+  try {
+    if(!audioCtx){ const AC = window.AudioContext || window.webkitAudioContext; if(AC) audioCtx = new AC(); }
+    if(audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+  } catch(e){}
+}
+function playGong(){
+  if(!audioCtx) return;
+  try {
+    const t0 = audioCtx.currentTime + .05, out = audioCtx.createGain();
+    out.gain.value = .5; out.connect(audioCtx.destination);
+    [[196,.9,4.5],[392,.55,3.2],[523.3,.35,2.6],[587.3,.3,2.2],[784,.18,1.6]].forEach(([f,g,d]) => {
+      [0, 1.7].forEach(delay => {
+        const o = audioCtx.createOscillator(), v = audioCtx.createGain();
+        o.type = "sine"; o.frequency.value = delay ? f*1.5 : f;
+        v.gain.setValueAtTime(0, t0 + delay); v.gain.linearRampToValueAtTime(g*(delay ? .6 : 1), t0 + delay + .02);
+        v.gain.exponentialRampToValueAtTime(.0001, t0 + delay + d);
+        o.connect(v); v.connect(out); o.start(t0 + delay); o.stop(t0 + delay + d + .1);
+      });
+    });
+  } catch(e){}
+}
+let wakeLock = null;
+async function syncWakeLock(){
+  const want = state && state.keepAwake !== false && (state.phase === "play" || state.phase === "write") && document.visibilityState === "visible";
+  try {
+    if(want && !wakeLock && navigator.wakeLock){ wakeLock = await navigator.wakeLock.request("screen"); wakeLock.addEventListener("release", () => { wakeLock = null; }); }
+    else if(!want && wakeLock){ await wakeLock.release(); wakeLock = null; }
+  } catch(e){ wakeLock = null; }
+}
+function checkDue(){
+  if(isDue() && !state.dueNotified){
+    state.dueNotified = true; save();
+    if(state.gong !== false) playGong();
+    try { if(navigator.vibrate) navigator.vibrate([300,120,300,120,500]); } catch(e){}
+    if(!ui.view) render();
+    return true;
+  }
+  return false;
+}
+document.addEventListener("pointerdown", unlockAudio, {capture:true});
+document.addEventListener("visibilitychange", () => { syncWakeLock(); if(document.visibilityState === "visible" && state){ checkDue(); if(state.phase === "play" && !ui.view) render(); } });
+let tick = 0;
+setInterval(() => {
+  if(!state || state.phase !== "play") return;
+  tick++;
+  const fired = checkDue();
+  if(!fired && !ui.view && tick % 4 === 0) render();
+}, 5000);
 
 function start(data){
   state = (data && data.state) || load() || fresh();
