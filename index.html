@@ -83,6 +83,8 @@ button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid transpare
 .pick button.c{border-color:#5b3f86}
 .pick button.c strong{color:var(--curse)}
 .pick button:disabled{opacity:.4;cursor:not-allowed}
+.pick button.sel{border-color:var(--brass);background:#46325f;box-shadow:inset 0 0 0 1px var(--brass)}
+.pick button .check{float:right;color:var(--brass);font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
 .reveal{text-align:center;padding:24px 16px;border:1px solid var(--brass-dim);border-radius:14px;background:radial-gradient(circle at 50% 0%,#3f2b5e,var(--velvet))}
 .quote{font-family:var(--display);font-size:1.45rem;line-height:1.3;margin-top:10px;text-wrap:balance}
 .secret{border:1px dashed var(--brass-dim);border-radius:12px;padding:10px 12px;font-size:.88rem;color:var(--mist)}
@@ -407,17 +409,23 @@ function vFlow(){
   const v = ui.view, victim = ui.victim ? P(ui.victim) : null;
   if(v === "o-victim") return pickVictims("Wen hat das Orakel erwischt?", "o-pick");
   if(v === "o-hide") return lookAway(victim, "Gebt das Handy den anderen. Sie bestätigen, welche Prophezeiung gerade eingetreten ist.", "o-show");
-  if(v === "o-show") return `${hero(true)}<p class="secret">Nur für alle außer ${esc(victim.name)}.</p><h2>Was ist gerade passiert?</h2>
-    <div class="pick">${aboutVictim(victim.id).map(x => `<button data-act="o-hit" data-id="${x.id}"><strong>von ${name(x.author)} · ${x.hits}× getroffen</strong>${esc(x.text)}</button>`).join("")}</div>
-    <button class="ghost" data-act="back">Zählt doch nicht</button>`;
+  if(v === "o-show"){
+    const list = aboutVictim(victim.id), sel = ui.sel || (list.length === 1 ? list[0].id : null);
+    return `${hero(true)}<p class="secret">Nur für alle außer ${esc(victim.name)}.</p>
+    <h2>Ist das gerade passiert?</h2>
+    <p class="small muted">${list.length > 1 ? `${esc(victim.name)} hat ${list.length} Prophezeiungen. Tippt die an, die gerade eingetreten ist, und bestätigt mit „Zählt“.` : "Wenn ja, bestätigt mit „Zählt“."}</p>
+    <div class="pick">${list.map(x => `<button class="${x.id === sel ? "sel" : ""}" aria-pressed="${x.id === sel}" data-act="o-sel" data-id="${x.id}">${x.id === sel ? `<span class="check">Ausgewählt</span>` : ""}<strong>von ${name(x.author)} · ${x.hits}× getroffen</strong>${esc(x.text)}</button>`).join("")}</div>
+    <div class="grid2"><button class="btn big" data-act="o-hit" data-id="${sel || ""}" ${sel ? "" : "disabled"}>Zählt</button><button class="ghost big" data-act="back">Zählt nicht</button></div>`;
+  }
   if(v === "g-victim") return pickVictims("Wer ruft „Durchschaut!“?", "g-pick");
   if(v === "g-say") return `${hero(true)}<div class="reveal"><p class="label">${esc(victim.name)}</p><p class="quote">Was steckt hinter deinem Orakel?</p><p class="muted small" style="margin-top:10px">Sag dein Muster laut. Danach schaust du weg, und die anderen entscheiden auf dem Handy.</p><p class="drink" style="margin-top:8px">Ein falscher Tipp kostet dich ${penalty(victim)} ${penalty(victim) === 1 ? "Schluck" : "Schlucke"}.</p></div>
     <button class="btn big" data-act="g-show">Gesagt. ${esc(victim.name)} schaut weg</button>
     <button class="ghost" data-act="back">Abbrechen</button>`;
   if(v === "g-show") return `${hero(true)}<p class="secret">Nur für alle außer ${esc(victim.name)}.</p><h2>Hat ${esc(victim.name)} eine davon erraten?</h2>
-    <p class="small muted">Sinngemäß reicht. Ihr entscheidet gemeinsam.</p>
-    <div class="pick">${aboutVictim(victim.id).map(x => `<button data-act="g-right" data-id="${x.id}"><strong>von ${name(x.author)}</strong>${esc(x.text)}</button>`).join("")}</div>
-    <button class="btn" data-act="g-wrong">Daneben</button>`;
+    <p class="small muted">Sinngemäß reicht. Liegt ${esc(victim.name)} richtig, tippt die Prophezeiung an und bestätigt.</p>
+    ${(() => { const list = aboutVictim(victim.id), sel = ui.sel || (list.length === 1 ? list[0].id : null);
+      return `<div class="pick">${list.map(x => `<button class="${x.id === sel ? "sel" : ""}" aria-pressed="${x.id === sel}" data-act="g-sel" data-id="${x.id}">${x.id === sel ? `<span class="check">Ausgewählt</span>` : ""}<strong>von ${name(x.author)}</strong>${esc(x.text)}</button>`).join("")}</div>
+      <div class="grid2"><button class="btn big" data-act="g-right" data-id="${sel || ""}" ${sel ? "" : "disabled"}>Richtig</button><button class="ghost big" data-act="g-wrong">Daneben</button></div>`; })()}`;
   if(v === "result") return `${hero(true)}<div class="reveal">${ui.msg}</div><button class="btn big" data-act="back">Zurück zum Tisch</button>`;
   if(v === "c-who") return `${hero(true)}<h2>Wer spricht einen Fluch aus?</h2><p class="small muted">Jeder einmal pro Abend, sobald die eigene Prophezeiung getroffen hat.</p>
     <div class="pick">${curseCasters().map(p => `<button data-act="c-caster" data-id="${p.id}">${esc(p.name)}</button>`).join("")}</div>
@@ -532,6 +540,8 @@ document.addEventListener("click", e => {
     case "orakel": go({view:"o-victim"}); break;
     case "o-pick": go({view:"o-hide", victim:id}); break;
     case "o-show": go({view:"o-show", victim:ui.victim}); break;
+    case "o-sel": ui.sel = id; render(); break;
+    case "g-sel": ui.sel = id; render(); break;
     case "o-hit": {
       const x = state.prophecies.find(y => y.id === id), v = P(x.target);
       x.hits++; P(x.author).hits++; v.drink += state.sips;
