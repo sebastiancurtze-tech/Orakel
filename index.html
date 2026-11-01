@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="utf-8">
@@ -16,88 +16,91 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Figtree:wght@400;600;700&display=swap">
 <style>
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-[hidden]{display:none!important}
 /* Layout: one narrow column, a single phone passed around the table; the ball sits on top like a centerpiece */
 :root{
-  --night:#1b1328; --velvet:#2a1d3d; --velvet-2:#352650; --brass:#d2ad66; --brass-dim:#8f7646;
-  --parchment:#f1e8d6; --mist:#b9adc9; --ember:#e0795a; --sage:#86c09a;
+  --night:#1b1328; --velvet:#2a1d3d; --velvet-2:#352650; --line:#3d2c56; --brass:#d2ad66; --brass-dim:#8f7646;
+  --parchment:#f1e8d6; --mist:#b9adc9; --ember:#e0795a; --sage:#86c09a; --curse:#c6a8f0;
   --display:"Marcellus SC", "Cormorant SC", Georgia, serif;
   --body:"Figtree", "Segoe UI", system-ui, sans-serif;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html,body{background:var(--night);color:var(--parchment)}
 body{margin:0;font-family:var(--body);font-size:16px;line-height:1.5;min-height:100%;
   background:radial-gradient(ellipse 120% 60% at 50% -10%, #3a2758 0%, var(--night) 60%) fixed var(--night);
   padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px));padding-block:20px 40px}
-#app{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+#app{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
 h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:.04em}
 h1{font-size:2.4rem;color:var(--brass)}
-h2{font-size:1.6rem}
+h2{font-size:1.55rem}
 h3{font-size:1.15rem;color:var(--brass)}
 p{margin:0}
 .muted{color:var(--mist)}
 .small{font-size:.875rem}
+.label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mist)}
 .hero{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
 .hero svg{width:110px;height:auto;filter:drop-shadow(0 8px 24px rgba(150,110,220,.35))}
-.hero.small-hero svg{width:64px}
-.hero.small-hero h1{font-size:1.7rem}
-.panel{background:var(--velvet);border:1px solid #3d2c56;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.hero.small-hero svg{width:60px}
+.hero.small-hero h1{font-size:1.6rem}
+.panel{background:var(--velvet);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
 .row{display:flex;gap:10px;align-items:center}
 .row > *{min-width:0}
+.between{justify-content:space-between}
 input,select,textarea{font:inherit;color:var(--parchment);background:var(--night);border:1px solid #4a3768;border-radius:10px;padding:11px 12px;width:100%}
-textarea{resize:vertical;min-height:70px}
+textarea{resize:vertical;min-height:80px}
 input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
 button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid transparent;padding:12px 16px;font-weight:600}
 .btn{background:var(--brass);color:#22182f}
 .btn:disabled{background:var(--brass-dim);opacity:.6;cursor:not-allowed}
-.btn-ghost{background:transparent;color:var(--parchment);border-color:#4a3768}
-.btn-big{font-family:var(--display);font-weight:400;font-size:1.45rem;letter-spacing:.06em;padding:18px}
-.btn-orakel{background:linear-gradient(160deg,#e3c27e,#b98d43);color:#22182f}
-.btn-durch{background:var(--velvet-2);color:var(--parchment);border-color:var(--brass-dim)}
-.btn-icon{padding:10px 12px;background:var(--velvet-2);color:var(--brass);border:1px solid #4a3768;flex:none}
+.ghost{background:transparent;color:var(--parchment);border-color:#4a3768}
+.big{font-family:var(--display);font-weight:400;font-size:1.45rem;letter-spacing:.06em;padding:18px}
+.b-orakel{background:linear-gradient(160deg,#e3c27e,#b98d43);color:#22182f}
+.b-guess{background:var(--velvet-2);color:var(--parchment);border-color:var(--brass-dim)}
+.b-curse{background:linear-gradient(160deg,#7d4fb8,#4b2d7a);color:var(--parchment);border-color:#9c78d6}
+.b-icon{padding:10px 12px;background:var(--velvet-2);color:var(--brass);border:1px solid #4a3768;flex:none}
+.btn-sm{padding:7px 12px;font-size:.88rem}
 .stack{display:flex;flex-direction:column;gap:10px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{background:var(--velvet-2);border:1px solid #4a3768;border-radius:999px;padding:6px 8px 6px 14px;display:flex;gap:6px;align-items:center}
 .chip button{padding:2px 8px;background:transparent;color:var(--mist);border:none;font-size:1.1rem}
-.seg{display:flex;gap:6px}
-.seg button{flex:1;background:var(--night);color:var(--mist);border:1px solid #4a3768}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1;background:var(--night);color:var(--mist);border:1px solid #4a3768;padding:10px 6px}
 .seg button[aria-pressed="true"]{background:var(--brass);color:#22182f;border-color:var(--brass)}
-.board{display:flex;flex-direction:column}
-.board .line{display:grid;grid-template-columns:1fr 64px 64px 44px;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #3d2c56;font-variant-numeric:tabular-nums}
+.board .line{display:grid;grid-template-columns:1fr 76px 62px 58px;gap:6px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
 .board .line:last-child{border-bottom:none}
-.board .head{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);padding-top:0}
-.board .num{text-align:center}
+.board .head{font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;color:var(--mist);padding-top:0}
+.num{text-align:center}
 .drink{color:var(--ember);font-weight:700}
 .give{color:var(--sage);font-weight:700}
-.log{display:flex;flex-direction:column;gap:8px;font-size:.9rem}
+.log{display:flex;flex-direction:column;gap:7px;font-size:.9rem}
 .log div{color:var(--mist);border-left:2px solid var(--brass-dim);padding-left:10px}
 .log b{color:var(--parchment);font-weight:600}
 .pick{display:flex;flex-direction:column;gap:8px}
 .pick button{text-align:left;background:var(--velvet-2);color:var(--parchment);border:1px solid #4a3768;font-weight:400}
-.pick button strong{display:block;color:var(--brass);font-weight:600;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
-.reveal{text-align:center;padding:26px 18px;border:1px solid var(--brass-dim);border-radius:14px;background:radial-gradient(circle at 50% 0%,#3f2b5e,var(--velvet))}
-.reveal .quote{font-family:var(--display);font-size:1.5rem;line-height:1.3;margin-top:10px;text-wrap:balance}
+.pick button strong{display:block;color:var(--brass);font-weight:600;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.pick button.c{border-color:#5b3f86}
+.pick button.c strong{color:var(--curse)}
+.pick button:disabled{opacity:.4;cursor:not-allowed}
+.reveal{text-align:center;padding:24px 16px;border:1px solid var(--brass-dim);border-radius:14px;background:radial-gradient(circle at 50% 0%,#3f2b5e,var(--velvet))}
+.quote{font-family:var(--display);font-size:1.45rem;line-height:1.3;margin-top:10px;text-wrap:balance}
 .secret{border:1px dashed var(--brass-dim);border-radius:12px;padding:10px 12px;font-size:.88rem;color:var(--mist)}
-.label{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mist)}
-.award{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #3d2c56}
+.timer{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:.9rem;color:var(--mist);font-variant-numeric:tabular-nums}
+.timer.due{border-color:var(--brass);color:var(--parchment);background:var(--velvet-2)}
+.curse-box{border:1px solid #5b3f86;background:var(--velvet-2);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.curse-meta{display:flex;justify-content:space-between;gap:8px;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--curse)}
+.award{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
 .award:last-child{border-bottom:none}
 .award span:last-child{color:var(--brass);text-align:right}
-.done-tag{font-size:.75rem;color:var(--sage)}
-.btn-curse{background:linear-gradient(160deg,#7d4fb8,#4b2d7a);color:var(--parchment);border-color:#9c78d6}
-.curses{border-color:#5b3f86}
-.curse{border:1px solid #5b3f86;background:var(--velvet-2);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}
-.curse-meta{display:flex;justify-content:space-between;gap:8px;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#c6a8f0}
-.btn-sm{padding:6px 12px;font-size:.85rem;border:1px solid #4a3768;border-radius:8px}
-.tag{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:#c6a8f0;border:1px solid #5b3f86;border-radius:999px;padding:1px 6px;margin-left:6px;vertical-align:middle}
-.pick button.curse-opt{border-color:#5b3f86}
-.pick button.curse-opt strong{color:#c6a8f0}
+.prop{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:3px}
+.prop .meta{font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mist)}
+.hits{color:var(--ember);font-weight:700;font-variant-numeric:tabular-nums}
 @media (prefers-reduced-motion:no-preference){
   .hero svg .swirl{transform-origin:60px 56px;animation:spin 18s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
-  .reveal{animation:glow .6s ease-out}
-  @keyframes glow{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+  .reveal{animation:glow .5s ease-out}
+  @keyframes glow{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
 }
 </style>
 </head>
@@ -128,34 +131,20 @@ const BALL = `<svg viewBox="0 0 120 132" aria-hidden="true">
 <path d="M40 104 Q60 99 80 104" stroke="#5e4620" stroke-width="1.5" fill="none"/>
 </svg>`;
 
+/* Gewohnheiten statt einmaliger Ereignisse: so schlägt das Orakel immer wieder zu */
 const IDEAS = [
- "{n} erzählt eine Geschichte von der Arbeit.",
- "{n} schaut aufs Handy, während jemand mit {p} redet.",
- "{n} singt bei einem Song mit.",
- "{n} sagt „Ich trink heute nicht so viel“.",
- "{n} holt sich etwas zu essen.",
- "{n} lacht so laut, dass sich jemand umdreht.",
- "{n} erwähnt ein Ex.",
- "{n} zeigt jemandem ein Foto auf dem Handy.",
- "{n} benutzt das Wort „eigentlich“ zweimal in einem Satz.",
- "{n} fragt, wie spät es ist.",
- "{n} redet über Urlaub.",
- "{n} verschüttet etwas.",
- "{n} umarmt jemanden.",
- "{n} schlägt ein anderes Spiel vor.",
- "{n} geht raus an die frische Luft.",
- "{n} imitiert jemanden.",
- "{n} beschwert sich über das Wetter.",
- "{n} erzählt einen Witz.",
- "{n} sagt „Weißt du noch, damals …“.",
- "{n} wechselt die Musik.",
- "{n} zieht die Jacke an oder aus.",
- "{n} redet über Essen, das {p} gerne kocht.",
- "{n} bietet jemandem etwas zu trinken an.",
- "{n} tippt jemandem auf die Schulter."
+ "{n} sagt „genau“.","{n} fasst sich ins Gesicht oder in die Haare.","{n} lacht über den eigenen Witz.","{n} schaut aufs Handy.",
+ "{n} sagt „eigentlich“.","{n} fängt einen Satz mit „Also“ an.","{n} trinkt, ohne dass jemand anstößt.","{n} verschränkt die Arme.",
+ "{n} sagt „Alter“.","{n} fragt „Was?“ oder „Hä?“.","{n} stellt eine Frage an die ganze Runde.","{n} benutzt ein englisches Wort.",
+ "{n} lehnt sich zurück.","{n} nennt jemanden beim Namen.","{n} redet über Essen.","{n} steht auf.","{n} gähnt.",
+ "{n} zeigt mit dem Finger auf jemanden.","{n} sagt „Prost“.","{n} lacht laut los.","{n} flucht.","{n} sagt „krass“.",
+ "{n} korrigiert jemanden.","{n} erzählt von der Arbeit.","{n} spielt mit dem Glas oder der Flasche.","{n} sagt „ja, ja“.",
+ "{n} stützt den Kopf auf die Hand.","{n} unterbricht jemanden.","{n} sagt „weißt du“.","{n} kratzt sich.",
+ "{n} macht ein Geräusch statt eines Wortes, etwa „pfff“.","{n} wiederholt, was jemand gerade gesagt hat.","{n} lobt etwas oder jemanden.",
+ "{n} schaut auf die Uhr.","{n} sagt „nee“.","{n} zieht die Augenbrauen hoch.","{n} sagt „Moment“ oder „warte“.","{n} nimmt sich etwas zu essen.",
+ "{n} lacht, bevor die Pointe kommt.","{n} beginnt eine Geschichte mit „Ich hab mal …“."
 ];
 
-/* Flüche: t = player | group | evening, d = Minuten (0 = bis Spielende) */
 const CURSES = [
  {t:"player",d:60,x:"{n} darf nur noch mit links trinken."},
  {t:"player",d:10,x:"{n} darf nicht lachen."},
@@ -249,343 +238,336 @@ const CURSES = [
 ];
 const TYPE = {player:"Spieler", group:"Ganze Gruppe", evening:"Der Abend"};
 const durLabel = d => d ? `${d} Min` : "bis Spielende";
-const UKEY = "orakel-used-curses";
-function usedSet(){ try{ return new Set(JSON.parse(localStorage.getItem(UKEY)) || []); }catch(e){ return new Set(); } }
-function markUsed(i){ const s = usedSet(); s.add(i); try{ localStorage.setItem(UKEY, JSON.stringify([...s])); }catch(e){} }
-function drawCurses(){
-  const all = CURSES.map((_,i)=>i), used = usedSet();
-  state.usedCurses.forEach(i=>used.add(i));
-  let pool = all.filter(i=>!used.has(i));
-  if(pool.length < 6){ try{ localStorage.removeItem(UKEY); }catch(e){} pool = all.filter(i=>!state.usedCurses.includes(i)); }
-  const rnd = a => a[Math.floor(Math.random()*a.length)], pick = [];
-  for(const t of ["player","group","evening"]){ const c = pool.filter(i=>CURSES[i].t===t); if(c.length) pick.push(rnd(c)); }
-  while(pick.length < 3){ const c = pool.filter(i=>!pick.includes(i)); if(!c.length) break; pick.push(rnd(c)); }
-  return pick;
-}
-function pruneCurses(){
-  const now = Date.now();
-  state.curses.filter(c=>c.until && c.until<=now).forEach(c=>addLog(`Der Fluch ist erloschen: „${esc(c.text)}“`));
-  state.curses = state.curses.filter(c=>!c.until || c.until>now);
-}
-function cursesPanel(){
-  if(!state.curses.length) return "";
-  const now = Date.now();
-  return `<div class="panel curses"><div class="row" style="justify-content:space-between"><h3>Aktive Flüche</h3><span class="small muted">Brechen kostet 1 Schluck</span></div>
-  ${state.curses.map(c=>`<div class="curse"><div class="curse-meta"><span>${TYPE[c.t]}</span><span>${c.until?`noch ${Math.max(1,Math.ceil((c.until-now)/60000))} Min`:"bis Spielende"}</span></div><p>${esc(c.text)}</p><div class="row"><button class="btn-ghost btn-sm" data-act="c-broke" data-id="${c.id}">Gebrochen</button><button class="btn-ghost btn-sm" data-act="c-lift" data-id="${c.id}">Aufheben</button></div></div>`).join("")}</div>`;
-}
-function activateCurse(i, targetId){
-  const c = CURSES[i], au = P(ui.who);
-  const text = c.x.split("{n}").join(targetId ? P(targetId).name : "");
-  state.curses.push({id:uid(), ci:i, t:c.t, text, target:targetId, until: c.d ? Date.now()+c.d*60000 : null});
-  state.usedCurses.push(i); markUsed(i); au.curseUsed = true;
-  addLog(`<b>${esc(au.name)}</b> spricht einen Fluch aus: „${esc(text)}“`);
-  go({view:"o-result", msg: ui.head + `<p class="label" style="margin-top:14px">${esc(au.name)} spricht einen Fluch aus · ${durLabel(c.d)}</p><p class="quote" style="font-size:1.2rem">${esc(text)}</p>`});
-}
 
 let state, ui = {view:null};
-const KEY = "orakel-v1";
-function fresh(){ return {phase:"setup", perPlayer:3, players:[], prophecies:[], log:[], writer:0, curses:[], usedCurses:[]}; }
+const KEY = "orakel-v2";
+const INTERVALS = [15,30,45,60,0];
+function fresh(players){ return {phase:"setup", players:(players||[]).map(resetPlayer), interval:30, sips:1, cursesOn:true, round:0, nextAt:null,
+  prophecies:[], write:null, curses:[], usedCurses:[], log:[]}; }
+function resetPlayer(p){ return Object.assign(p, {drink:0, hits:0, solved:0, curseUsed:false}); }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
 function load(){ try{ const s = JSON.parse(localStorage.getItem(KEY)); if(s && s.phase) return s; }catch(e){} return null; }
 const uid = () => Math.random().toString(36).slice(2,9);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const rnd = a => a[Math.floor(Math.random()*a.length)];
 const P = id => state.players.find(p => p.id === id);
 const name = id => esc(P(id)?.name || "?");
-function addLog(html){ state.log.unshift(html); state.log = state.log.slice(0,30); }
+const active = () => state.prophecies.filter(x => x.status === "active");
+const aboutVictim = id => active().filter(x => x.target === id);
+function addLog(html){ state.log.unshift(html); state.log = state.log.slice(0,40); }
 function go(v){ ui = v; render(); window.scrollTo(0,0); }
+const hero = small => `<div class="hero ${small ? "small-hero" : ""}">${BALL}<h1>Orakel</h1>${small ? "" : `<p class="muted">Jeder kennt das Schicksal, nur das Opfer nicht.</p>`}</div>`;
+const fmtMin = ms => { const m = Math.max(0, Math.ceil(ms/60000)); return m === 1 ? "1 Minute" : `${m} Minuten`; };
 
-const hero = (small) => `<div class="hero ${small?"small-hero":""}">${BALL}<h1>Orakel</h1>${small?"":`<p class="muted">Prophezeie den Abend deiner Freunde.</p>`}</div>`;
+/* ---------- Schreibrunde: jeder wählt ein Opfer, gewählte fallen raus ---------- */
+function startWriteRound(){
+  state.round++;
+  const ids = state.players.map(p => p.id), shift = (state.round - 1) % ids.length;
+  state.write = {order: ids.slice(shift).concat(ids.slice(0, shift)), idx:0, taken:[]};
+  state.phase = "write";
+  go({view:null});
+}
+function validTargets(writerId){
+  const w = state.write;
+  const writersAfter = w.order.slice(w.idx + 1);
+  const free = state.players.map(p => p.id).filter(id => !w.taken.includes(id));
+  return free.filter(t => {
+    if(t === writerId) return false;
+    const rest = free.filter(x => x !== t);
+    return !(writersAfter.length === 1 && rest.length === 1 && writersAfter[0] === rest[0]);
+  });
+}
 
+/* ---------- Render ---------- */
 function render(){
-  const app = document.getElementById("app");
-  let html = "";
-  if(state.phase === "table") pruneCurses();
-  if(ui.view === "askreset") html = viewReset();
-  else if(state.phase === "setup") html = viewSetup();
-  else if(state.phase === "write") html = viewWrite();
-  else if(state.phase === "table") html = ui.view ? viewFlow() : viewTable();
-  else if(state.phase === "end") html = viewEnd();
-  app.innerHTML = html;
-  const f = app.querySelector("[autofocus]"); if(f) f.focus();
+  pruneCurses();
+  let h = "";
+  if(ui.view === "askreset") h = vReset();
+  else if(state.phase === "setup") h = vSetup();
+  else if(state.phase === "write") h = vWrite();
+  else if(state.phase === "play") h = ui.view ? vFlow() : vTable();
+  else h = vEnd();
+  document.getElementById("app").innerHTML = h;
+  const f = document.querySelector("[autofocus]"); if(f) f.focus();
   save();
 }
 
-/* ---------- Setup ---------- */
-function viewSetup(){
+function vSetup(){
   const ps = state.players;
   return `${hero()}
   <div class="panel">
     <h3>Wer spielt mit?</h3>
     <form class="row" data-form="add">
-      <input id="newName" placeholder="Name eingeben" maxlength="20" autocomplete="off" autofocus>
+      <input id="newName" placeholder="Name eingeben" maxlength="20" autocomplete="off" aria-label="Name" autofocus>
       <button class="btn" type="submit">Dazu</button>
     </form>
-    <div class="chips">${ps.map(p=>`<span class="chip">${esc(p.name)}<button data-act="rm" data-id="${p.id}" aria-label="${esc(p.name)} entfernen">×</button></span>`).join("") || `<span class="muted small">Mindestens 3 Leute.</span>`}</div>
+    <div class="chips">${ps.map(p => `<span class="chip">${esc(p.name)}<button data-act="rm" data-id="${p.id}" aria-label="${esc(p.name)} entfernen">×</button></span>`).join("") || `<span class="muted small">Mindestens 3 Leute, am besten in Sitzreihenfolge.</span>`}</div>
   </div>
   <div class="panel">
-    <h3>Prophezeiungen pro Person</h3>
-    <div class="seg">${[2,3,4].map(n=>`<button data-act="per" data-n="${n}" aria-pressed="${state.perPlayer===n}">${n}</button>`).join("")}</div>
+    <h3>Neue Prophezeiungen</h3>
+    <p class="small muted">So oft verteilt das Orakel eine neue Runde. Die alten bleiben aktiv.</p>
+    <div class="seg">${INTERVALS.map(n => `<button data-act="interval" data-n="${n}" aria-pressed="${state.interval === n}">${n ? n + " Min" : "Aus"}</button>`).join("")}</div>
+    <h3 style="margin-top:6px">Schlucke pro Treffer</h3>
+    <div class="seg">${[1,2].map(n => `<button data-act="sips" data-n="${n}" aria-pressed="${state.sips === n}">${n}</button>`).join("")}</div>
+    <h3 style="margin-top:6px">Flüche</h3>
+    <div class="seg"><button data-act="curses" data-v="1" aria-pressed="${state.cursesOn}">An</button><button data-act="curses" data-v="0" aria-pressed="${!state.cursesOn}">Aus</button></div>
   </div>
   <div class="panel small muted">
-    <p><b style="color:var(--parchment)">So geht's:</b> Jeder schreibt geheim, was heute Abend passieren wird. Tritt es ein, ruf „Orakel!“: Die genannte Person trinkt 2, du verteilst 2. Merkst du, dass dich jemand in eine Prophezeiung lenkt, ruf „Durchschaut!“. Richtig geraten: Der Prophet trinkt 3. Falsch: Du trinkst 1. Am Ende trinkt jeder 1 pro unerfüllter Prophezeiung.</p><p style="margin-top:8px">Einmal pro Abend darfst du nach einer erfüllten Prophezeiung statt Schlucke zu verteilen einen Fluch aussprechen.</p>
+    <p><b style="color:var(--parchment)">So geht's:</b> Jeder schreibt geheim eine Prophezeiung über ein Opfer seiner Wahl, am besten eine Gewohnheit wie „sagt ‚genau‘“. Passiert es, ruft jemand „Orakel!“. Das Opfer schaut weg, die anderen bestätigen auf dem Handy, und das Opfer trinkt, ohne zu wissen, warum. Die Prophezeiung bleibt aktiv, bis das Opfer sie errät. Dann trinkt der Prophet 3.</p>
   </div>
-  <button class="btn btn-big" data-act="start" ${ps.length<3?"disabled":""}>Prophezeiungen schreiben</button>`;
+  <button class="btn big" data-act="start" ${ps.length < 3 ? "disabled" : ""}>Prophezeiungen schreiben</button>`;
 }
 
-/* ---------- Write phase ---------- */
-function viewWrite(){
-  const p = state.players[state.writer];
+function vWrite(){
+  const w = state.write, writer = state.players.find(p => p.id === w.order[w.idx]);
   if(ui.view !== "form") return `${hero(true)}
     <div class="reveal">
-      <p class="label">Spieler ${state.writer+1} von ${state.players.length}</p>
-      <p class="quote">Gib das Handy an ${esc(p.name)}</p>
-      <p class="muted small" style="margin-top:10px">Alle anderen schauen weg.</p>
+      <p class="label">Runde ${state.round} · ${w.idx + 1} von ${w.order.length}</p>
+      <p class="quote">Gib das Handy an ${esc(writer.name)}</p>
+      <p class="muted small" style="margin-top:10px">Niemand schaut mit.</p>
     </div>
-    <button class="btn btn-big" data-act="iam">Ich bin ${esc(p.name)}</button>
-    <button class="btn btn-ghost" data-act="askreset">Neu starten</button>`;
-  const others = state.players.filter(x=>x.id!==p.id);
-  const rows = Array.from({length:state.perPlayer},(_,i)=>`
-    <div class="panel">
-      <span class="label">Prophezeiung ${i+1}</span>
-      <div class="row">
-        <select id="t${i}" aria-label="Über wen">${others.map(o=>`<option value="${o.id}">${esc(o.name)}</option>`).join("")}</select>
-        <button class="btn-icon" data-act="idea" data-i="${i}" title="Idee würfeln" aria-label="Idee würfeln">Idee</button>
-      </div>
-      <textarea id="x${i}" maxlength="140" placeholder="Was wird passieren?"></textarea>
-    </div>`).join("");
+    <button class="btn big" data-act="iam">Ich bin ${esc(writer.name)}</button>
+    ${state.round > 1 ? `<button class="ghost" data-act="postpone">Später weiterschreiben</button>` : `<button class="ghost btn-sm" data-act="askreset">Neu starten</button>`}`;
+  const opts = validTargets(writer.id);
   return `${hero(true)}
-    <p><b>${esc(p.name)}</b>, schreib deine Prophezeiungen. Konkret und beobachtbar, damit die Gruppe entscheiden kann.</p>
-    ${rows}
-    <p class="small muted" id="werr"></p>
-    <button class="btn btn-big" data-act="savewrite">Versiegeln</button>`;
+    <p><b>${esc(writer.name)}</b>, wähle dein Opfer und schreib, was es heute Abend immer wieder tun wird.</p>
+    <div class="panel">
+      <label class="label" for="tSel">Dein Opfer</label>
+      <div class="row"><select id="tSel">${opts.map(id => `<option value="${id}">${name(id)}</option>`).join("")}</select>
+      <button class="b-icon" data-act="idea">Idee</button></div>
+      <label class="label" for="xTxt">Prophezeiung</label>
+      <textarea id="xTxt" maxlength="140" placeholder="z. B. sagt „genau“"></textarea>
+      <p class="small muted">Gewohnheiten funktionieren am besten, weil sie öfter passieren.</p>
+    </div>
+    <p class="small muted" id="werr" aria-live="polite"></p>
+    <button class="btn big" data-act="seal">Versiegeln</button>`;
 }
 
-/* ---------- Table ---------- */
-function viewTable(){
-  const open = state.prophecies.filter(x=>x.status==="open").length;
+function timerBox(){
+  if(!state.interval || !state.nextAt) return "";
+  const left = state.nextAt - Date.now();
+  if(left > 0) return `<div class="timer"><span>Nächste Prophezeiungen in</span><b>${fmtMin(left)}</b></div>`;
+  return `<div class="timer due"><span>Das Orakel ruft: Zeit für neue Prophezeiungen.</span><button class="btn btn-sm" data-act="newround">Schreiben</button></div>`;
+}
+function cursesPanel(){
+  if(!state.curses.length) return "";
+  const now = Date.now();
+  return `<div class="panel" style="border-color:#5b3f86"><div class="row between"><h3 style="color:var(--curse)">Aktive Flüche</h3><span class="small muted">Brechen kostet 1 Schluck</span></div>
+  ${state.curses.map(c => `<div class="curse-box"><div class="curse-meta"><span>${TYPE[c.t]}</span><span>${c.until ? `noch ${Math.max(1, Math.ceil((c.until - now)/60000))} Min` : "bis Spielende"}</span></div><p>${esc(c.text)}</p><div class="row"><button class="ghost btn-sm" data-act="c-broke" data-id="${c.id}">Gebrochen</button><button class="ghost btn-sm" data-act="c-lift" data-id="${c.id}">Aufheben</button></div></div>`).join("")}</div>`;
+}
+const curseCasters = () => state.cursesOn ? state.players.filter(p => !p.curseUsed && p.hits > 0) : [];
+
+function vTable(){
+  const casters = curseCasters();
   return `${hero(true)}
+  ${timerBox()}
+  <button class="btn big b-orakel" data-act="orakel">Orakel!</button>
   <div class="grid2">
-    <button class="btn btn-big btn-orakel" data-act="orakel">Orakel!</button>
-    <button class="btn btn-big btn-durch" data-act="durch">Durchschaut!</button>
+    <button class="btn b-guess" data-act="guess">Opfer rät</button>
+    ${state.cursesOn ? `<button class="btn b-curse" data-act="curse" ${casters.length ? "" : "disabled"} title="Wer schon getroffen hat, darf einmal pro Abend fluchen">Fluch</button>` : `<span></span>`}
   </div>
   ${cursesPanel()}
   <div class="panel">
-    <div class="row" style="justify-content:space-between"><h3>Schluck-Konto</h3><span class="small muted">${open} Prophezeiungen offen</span></div>
+    <div class="row between"><h3>Schluck-Konto</h3><span class="small muted">${active().length} Prophezeiungen aktiv</span></div>
     <div class="board">
-      <div class="line head"><span>Name</span><span class="num">Trinken</span><span class="num">Verteilen</span><span class="num" title="Erfüllt">Erf.</span></div>
-      ${state.players.map(p=>`<div class="line"><span>${esc(p.name)}${p.curseUsed?"":'<span class="tag" title="Fluch noch verfügbar">Fluch</span>'}</span><span class="num drink">${p.drink}</span><span class="num give">${p.give}</span><span class="num">${p.fulfilled}</span></div>`).join("")}
+      <div class="line head"><span>Name</span><span class="num">Getrunken</span><span class="num">Treffer</span><span class="num">Erraten</span></div>
+      ${state.players.map(p => `<div class="line"><span>${esc(p.name)}</span><span class="num drink">${p.drink}</span><span class="num give">${p.hits}</span><span class="num">${p.solved}</span></div>`).join("")}
     </div>
+    <p class="small muted">Treffer: wie oft die eigenen Prophezeiungen zugeschlagen haben.</p>
   </div>
-  ${state.log.length?`<div class="panel"><h3>Was bisher geschah</h3><div class="log">${state.log.slice(0,10).map(l=>`<div>${l}</div>`).join("")}</div></div>`:""}
-  <div class="grid2"><button class="btn btn-ghost" data-act="askend">Abend beenden</button><button class="btn btn-ghost" data-act="askreset">Neu starten</button></div>`;
+  ${state.log.length ? `<div class="panel"><h3>Was bisher geschah</h3><div class="log">${state.log.slice(0,10).map(l => `<div>${l}</div>`).join("")}</div></div>` : ""}
+  <div class="grid2"><button class="ghost btn-sm" data-act="askend">Abend beenden</button><button class="ghost btn-sm" data-act="askreset">Neu starten</button></div>`;
 }
 
-function viewReset(){
-  return `${hero(true)}<div class="reveal"><p class="quote">Spiel neu starten?</p><p class="muted small" style="margin-top:10px">Alle Prophezeiungen und Schlucke werden gelöscht. Das lässt sich nicht rückgängig machen.</p></div>
-    <div class="stack">
-      <button class="btn" data-act="again">Neu starten, gleiche Spieler</button>
-      <button class="btn btn-ghost" data-act="reset">Komplett neu, Spieler neu eintragen</button>
-      <button class="btn btn-ghost" data-act="back">Abbrechen</button>
-    </div>`;
+function pickVictims(title, act){
+  const vs = state.players.filter(p => aboutVictim(p.id).length);
+  return `${hero(true)}<h2>${title}</h2>
+  ${vs.length ? `<div class="pick">${vs.map(p => `<button data-act="${act}" data-id="${p.id}">${esc(p.name)}</button>`).join("")}</div>` : `<p class="muted">Gerade gibt es keine aktiven Prophezeiungen.</p>`}
+  <button class="ghost" data-act="back">Abbrechen</button>`;
+}
+function lookAway(victim, text, act){
+  return `${hero(true)}<div class="reveal"><p class="label">${esc(victim.name)}</p><p class="quote">Schau weg!</p><p class="muted small" style="margin-top:10px">${text}</p></div>
+  <button class="btn big" data-act="${act}">${esc(victim.name)} schaut weg</button>
+  <button class="ghost" data-act="back">Abbrechen</button>`;
+}
+function vFlow(){
+  const v = ui.view, victim = ui.victim ? P(ui.victim) : null;
+  if(v === "o-victim") return pickVictims("Wen hat das Orakel erwischt?", "o-pick");
+  if(v === "o-hide") return lookAway(victim, "Gebt das Handy den anderen. Sie bestätigen, welche Prophezeiung gerade eingetreten ist.", "o-show");
+  if(v === "o-show") return `${hero(true)}<p class="secret">Nur für alle außer ${esc(victim.name)}.</p><h2>Was ist gerade passiert?</h2>
+    <div class="pick">${aboutVictim(victim.id).map(x => `<button data-act="o-hit" data-id="${x.id}"><strong>von ${name(x.author)} · ${x.hits}× getroffen</strong>${esc(x.text)}</button>`).join("")}</div>
+    <button class="ghost" data-act="back">Zählt doch nicht</button>`;
+  if(v === "g-victim") return pickVictims("Wer will raten?", "g-pick");
+  if(v === "g-say") return `${hero(true)}<div class="reveal"><p class="label">${esc(victim.name)}</p><p class="quote">Sag laut, was du vermutest</p><p class="muted small" style="margin-top:10px">Danach schaust du weg und gibst das Handy den anderen. Sie entscheiden, ob du richtig liegst.</p></div>
+    <button class="btn big" data-act="g-show">Gesagt. ${esc(victim.name)} schaut weg</button>
+    <button class="ghost" data-act="back">Abbrechen</button>`;
+  if(v === "g-show") return `${hero(true)}<p class="secret">Nur für alle außer ${esc(victim.name)}.</p><h2>Hat ${esc(victim.name)} eine davon erraten?</h2>
+    <p class="small muted">Sinngemäß reicht. Ihr entscheidet gemeinsam.</p>
+    <div class="pick">${aboutVictim(victim.id).map(x => `<button data-act="g-right" data-id="${x.id}"><strong>von ${name(x.author)}</strong>${esc(x.text)}</button>`).join("")}</div>
+    <button class="btn" data-act="g-wrong">Daneben</button>`;
+  if(v === "result") return `${hero(true)}<div class="reveal">${ui.msg}</div><button class="btn big" data-act="back">Zurück zum Tisch</button>`;
+  if(v === "c-who") return `${hero(true)}<h2>Wer spricht einen Fluch aus?</h2><p class="small muted">Jeder einmal pro Abend, sobald die eigene Prophezeiung getroffen hat.</p>
+    <div class="pick">${curseCasters().map(p => `<button data-act="c-caster" data-id="${p.id}">${esc(p.name)}</button>`).join("")}</div>
+    <button class="ghost" data-act="back">Abbrechen</button>`;
+  if(v === "c-choose") return `${hero(true)}<h2>${name(ui.caster)}, wähle deinen Fluch</h2>
+    <div class="pick">${ui.opts.map(i => { const c = CURSES[i]; return `<button class="c" data-act="c-pick" data-i="${i}"><strong>${TYPE[c.t]} · ${durLabel(c.d)}</strong>${esc(c.x.split("{n}").join("Jemand"))}</button>`; }).join("")}</div>
+    <button class="ghost" data-act="back">Abbrechen</button>`;
+  if(v === "c-target") { const c = CURSES[ui.ci]; return `${hero(true)}<h2>Wen trifft der Fluch?</h2><p class="secret">${esc(c.x.split("{n}").join("…"))} · ${durLabel(c.d)}</p>
+    <div class="pick">${state.players.filter(p => p.id !== ui.caster).map(p => `<button data-act="c-tgt" data-id="${p.id}">${esc(p.name)}</button>`).join("")}</div>
+    <button class="ghost" data-act="c-again">Anderen Fluch wählen</button>`; }
+  if(v === "c-break") return `${hero(true)}<h2>Wer hat den Fluch gebrochen?</h2><div class="pick">${state.players.map(p => `<button data-act="c-breaker" data-id="${p.id}">${esc(p.name)}</button>`).join("")}</div><button class="ghost" data-act="back">Abbrechen</button>`;
+  if(v === "askend") return `${hero(true)}<div class="reveal"><p class="quote">Abend beenden?</p><p class="muted small" style="margin-top:10px">Alle Prophezeiungen werden enthüllt, auch für die Opfer.</p></div>
+    <div class="grid2"><button class="btn" data-act="end">Enthüllen</button><button class="ghost" data-act="back">Weiterspielen</button></div>`;
+  return vTable();
 }
 
-function pickPlayers(title, act, exclude){
-  return `${hero(true)}<h2>${title}</h2><div class="pick">${state.players.filter(p=>p.id!==exclude).map(p=>`<button data-act="${act}" data-id="${p.id}">${esc(p.name)}</button>`).join("")}</div>
-  <button class="btn btn-ghost" data-act="back">Abbrechen</button>`;
-}
-
-function viewFlow(){
-  const v = ui.view;
-  if(v==="o-who") return pickPlayers("Wessen Prophezeiung ist eingetreten?","o-pick");
-  if(v==="o-reward") return `${hero(true)}<div class="reveal">${ui.head}</div>
-      <p style="text-align:center"><b>${name(ui.who)}</b>, deine Belohnung: Schlucke verteilen oder deinen einmaligen Fluch aussprechen?</p>
-      <div class="stack"><button class="btn" data-act="rw-give">2 Schlucke verteilen</button><button class="btn btn-big btn-curse" data-act="rw-curse">Fluch aussprechen</button></div>
-      <p class="small muted" style="text-align:center">Den Fluch hast du nur einmal pro Abend.</p>`;
-  if(v==="c-choose") return `${hero(true)}<h2>${name(ui.who)}, wähle deinen Fluch</h2>
-      <div class="pick">${ui.opts.map(i=>{const c=CURSES[i];return `<button class="curse-opt" data-act="c-pick" data-i="${i}"><strong>${TYPE[c.t]} · ${durLabel(c.d)}</strong>${esc(c.x.split("{n}").join("Jemand"))}</button>`}).join("")}</div>
-      <p class="small muted">Bei Spieler-Flüchen bestimmst du gleich, wen es trifft.</p>
-      <button class="btn btn-ghost" data-act="rw-give">Doch lieber 2 Schlucke verteilen</button>`;
-  if(v==="c-target"){
-    const c = CURSES[ui.ci];
-    return `${hero(true)}<h2>Wen trifft der Fluch?</h2><p class="secret">${esc(c.x.split("{n}").join("…"))} · ${durLabel(c.d)}</p>
-      <div class="pick">${state.players.filter(p=>p.id!==ui.who).map(p=>`<button data-act="c-tgt" data-id="${p.id}">${esc(p.name)}</button>`).join("")}</div>
-      <button class="btn btn-ghost" data-act="c-back">Anderen Fluch wählen</button>`;
-  }
-  if(v==="c-break") return pickPlayers("Wer hat den Fluch gebrochen?","c-breaker");
-  if(v==="o-hand") return `${hero(true)}<div class="reveal"><p class="label">Die Prophezeiung von ${name(ui.who)}</p><p class="quote">Gib das Handy an ${name(ui.who)}</p><p class="muted small" style="margin-top:10px">Nur ${name(ui.who)} wählt aus. Alle anderen schauen weg.</p></div>
-      <button class="btn btn-big" data-act="o-iam">Ich bin ${name(ui.who)}</button><button class="btn btn-ghost" data-act="back">Abbrechen</button>`;
-  if(v==="o-read"){
-    const x = state.prophecies.find(y=>y.id===ui.pid);
-    return `${hero(true)}<div class="reveal"><p class="label">${name(ui.who)}, lies laut vor</p><p class="quote">${esc(x.text)}</p></div>
-      <p style="text-align:center">Danach zeigst du das Handy allen, damit die Gruppe abstimmen kann.</p>
-      <button class="btn btn-big" data-act="o-tovote">Vorgelesen, zur Abstimmung</button>
-      <button class="btn btn-ghost" data-act="o-iam">Andere auswählen</button>`;
-  }
-  if(v==="o-list"){
-    const mine = state.prophecies.filter(x=>x.author===ui.who && x.status==="open");
-    return `${hero(true)}<h2>${name(ui.who)}, welche?</h2>
-      <p class="secret">Nur ${name(ui.who)} schaut aufs Handy.</p>
-      ${mine.length?`<div class="pick">${mine.map(x=>`<button data-act="o-sel" data-id="${x.id}"><strong>über ${name(x.target)}</strong>${esc(x.text)}</button>`).join("")}</div>`:`<p class="muted">Du hast keine offenen Prophezeiungen mehr.</p>`}
-      <button class="btn btn-ghost" data-act="back">Abbrechen</button>`;
-  }
-  if(v==="o-vote"){
-    const x = state.prophecies.find(y=>y.id===ui.pid);
-    return `${hero(true)}<div class="reveal"><p class="label">${name(x.author)} prophezeite</p><p class="quote">${esc(x.text)}</p></div>
-      <p style="text-align:center">Ist es eingetreten? Die Gruppe entscheidet.</p>
-      <div class="grid2"><button class="btn" data-act="o-yes">Zählt</button><button class="btn btn-ghost" data-act="o-no">Zählt nicht</button></div>`;
-  }
-  if(v==="o-result") return resultView(ui.msg);
-  if(v==="d-acc") return pickPlayers("Wer ruft „Durchschaut!“?","d-acc-sel");
-  if(v==="d-sus") return pickPlayers(`${name(ui.acc)}, wen verdächtigst du?`,"d-sus-sel",ui.acc);
-  if(v==="d-say") return `${hero(true)}<div class="reveal"><p class="label">${name(ui.acc)} verdächtigt ${name(ui.sus)}</p><p class="quote">Sag deine Vermutung laut</p><p class="muted small" style="margin-top:10px">Danach bekommt ${name(ui.sus)} das Handy.</p></div>
-      <button class="btn btn-big" data-act="d-iam">Ich bin ${name(ui.sus)}</button><button class="btn btn-ghost" data-act="back">Abbrechen</button>`;
-  if(v==="d-check"){
-    const mine = state.prophecies.filter(x=>x.author===ui.sus && x.status==="open");
-    return `${hero(true)}<h2>${name(ui.sus)}, ehrlich sein</h2>
-      <p class="secret">Passt die Vermutung von ${name(ui.acc)} zu einer deiner Prophezeiungen? Nur du schaust hin.</p>
-      <div class="pick">${mine.map(x=>`<button data-act="d-hit" data-id="${x.id}"><strong>über ${name(x.target)}</strong>${esc(x.text)}</button>`).join("")}</div>
-      <button class="btn" data-act="d-miss">Keine passt</button>`;
-  }
-  if(v==="d-result") return resultView(ui.msg);
-  if(v==="askend") return `${hero(true)}<div class="reveal"><p class="quote">Abend wirklich beenden?</p><p class="muted small" style="margin-top:10px">Alle offenen Prophezeiungen werden enthüllt. Für jede trinkt ihr Prophet 1.</p></div>
-      <div class="grid2"><button class="btn" data-act="end">Enthüllen</button><button class="btn btn-ghost" data-act="back">Weiterspielen</button></div>`;
-  return viewTable();
-}
-function resultView(msg){
-  return `${hero(true)}<div class="reveal">${msg}</div><button class="btn btn-big" data-act="back">Zurück zum Tisch</button>`;
-}
-
-/* ---------- End ---------- */
-function viewEnd(){
-  const left = state.prophecies.filter(x=>x.status==="open");
-  const best = (key) => { const m = Math.max(...state.players.map(key)); if(m<=0) return "niemand"; return state.players.filter(p=>key(p)===m).map(p=>esc(p.name)).join(", ")+` (${m})`; };
-  const targeted = p => state.prophecies.filter(x=>x.target===p.id).length;
+function vEnd(){
+  const ps = state.players, all = state.prophecies;
+  const best = key => { const m = Math.max(...ps.map(key)); if(m <= 0) return "niemand"; return ps.filter(p => key(p) === m).map(p => esc(p.name)).join(", ") + ` (${m})`; };
+  const hitOn = p => all.filter(x => x.target === p.id).reduce((s,x) => s + x.hits, 0);
+  const sorted = all.slice().sort((a,b) => b.hits - a.hits);
   return `${hero()}
   <div class="panel"><h3>Die Ehrungen</h3>
-    <div class="award"><span>Orakel des Abends</span><span>${best(p=>p.fulfilled)}</span></div>
-    <div class="award"><span>Bester Detektiv</span><span>${best(p=>p.caught)}</span></div>
-    <div class="award"><span>Am häufigsten prophezeit</span><span>${best(targeted)}</span></div>
-    <div class="award"><span>Durstigste Seele</span><span>${best(p=>p.drink)}</span></div>
+    <div class="award"><span>Orakel des Abends</span><span>${best(p => p.hits)}</span></div>
+    <div class="award"><span>Ahnungslosestes Opfer</span><span>${best(hitOn)}</span></div>
+    <div class="award"><span>Hellseher</span><span>${best(p => p.solved)}</span></div>
+    <div class="award"><span>Durstigste Seele</span><span>${best(p => p.drink)}</span></div>
   </div>
-  <div class="panel"><h3>Was nie geschah</h3>
-    ${left.length?`<div class="log">${left.map(x=>`<div><b>${name(x.author)}</b> über ${name(x.target)}: ${esc(x.text)}</div>`).join("")}</div>`:`<p class="muted">Alle Prophezeiungen wurden erfüllt oder entlarvt.</p>`}
+  <div class="panel"><h3>Alle Prophezeiungen</h3>
+    ${sorted.length ? sorted.map(x => `<div class="prop"><span class="meta">${name(x.author)} über ${name(x.target)} · ${x.status === "solved" ? "erraten" : "nie erraten"}</span><span>${esc(x.text)}</span><span class="hits">${x.hits}× getroffen</span></div>`).join("") : `<p class="muted">Keine.</p>`}
   </div>
   <div class="panel"><h3>Endstand</h3>
-    <div class="board"><div class="line head"><span>Name</span><span class="num">Trinken</span><span class="num">Verteilen</span><span class="num">Erf.</span></div>
-    ${state.players.map(p=>`<div class="line"><span>${esc(p.name)}</span><span class="num drink">${p.drink}</span><span class="num give">${p.give}</span><span class="num">${p.fulfilled}</span></div>`).join("")}</div>
+    <div class="board"><div class="line head"><span>Name</span><span class="num">Getrunken</span><span class="num">Treffer</span><span class="num">Erraten</span></div>
+    ${ps.map(p => `<div class="line"><span>${esc(p.name)}</span><span class="num drink">${p.drink}</span><span class="num give">${p.hits}</span><span class="num">${p.solved}</span></div>`).join("")}</div>
   </div>
-  <button class="btn btn-big" data-act="again">Neues Spiel, gleiche Runde</button>
-  <button class="btn btn-ghost" data-act="reset">Ganz neu anfangen</button>`;
+  <button class="btn big" data-act="again">Neues Spiel, gleiche Runde</button>
+  <button class="ghost" data-act="reset">Ganz neu anfangen</button>`;
+}
+function vReset(){
+  return `${hero(true)}<div class="reveal"><p class="quote">Spiel neu starten?</p><p class="muted small" style="margin-top:10px">Alle Prophezeiungen und Schlucke werden gelöscht. Das lässt sich nicht rückgängig machen.</p></div>
+  <div class="stack"><button class="btn" data-act="again">Neu starten, gleiche Leute</button><button class="ghost" data-act="reset">Komplett neu, Leute neu eintragen</button><button class="ghost" data-act="back">Abbrechen</button></div>`;
+}
+
+/* ---------- Flüche ---------- */
+function curseUsedSet(){ try{ return new Set(JSON.parse(localStorage.getItem("orakel-used-curses")) || []); }catch(e){ return new Set(); } }
+function drawCurses(){
+  const all = CURSES.map((_,i) => i), used = curseUsedSet();
+  state.usedCurses.forEach(i => used.add(i));
+  let pool = all.filter(i => !used.has(i));
+  if(pool.length < 6){ try{ localStorage.removeItem("orakel-used-curses"); }catch(e){} pool = all.filter(i => !state.usedCurses.includes(i)); }
+  const pick = [];
+  for(const t of ["player","group","evening"]){ const c = pool.filter(i => CURSES[i].t === t); if(c.length) pick.push(rnd(c)); }
+  return pick;
+}
+function castCurse(i, targetId){
+  const c = CURSES[i], caster = P(ui.caster);
+  const text = c.x.split("{n}").join(targetId ? P(targetId).name : "");
+  state.curses.push({id:uid(), t:c.t, text, target:targetId, until: c.d ? Date.now() + c.d*60000 : null});
+  state.usedCurses.push(i); caster.curseUsed = true;
+  try{ const s = curseUsedSet(); s.add(i); localStorage.setItem("orakel-used-curses", JSON.stringify([...s])); }catch(e){}
+  addLog(`<b>${esc(caster.name)}</b> spricht einen Fluch aus: „${esc(text)}“`);
+  go({view:"result", msg:`<p class="label" style="color:var(--curse)">${esc(caster.name)} spricht einen Fluch aus · ${durLabel(c.d)}</p><p class="quote">${esc(text)}</p>`});
+}
+function pruneCurses(){
+  const now = Date.now();
+  state.curses.filter(c => c.until && c.until <= now).forEach(c => addLog(`Der Fluch ist erloschen: „${esc(c.text)}“`));
+  state.curses = state.curses.filter(c => !c.until || c.until > now);
 }
 
 /* ---------- Events ---------- */
-document.addEventListener("submit", e=>{
-  if(e.target.dataset.form==="add"){
-    e.preventDefault();
-    const inp = document.getElementById("newName"); const n = inp.value.trim();
-    if(n && !state.players.some(p=>p.name.toLowerCase()===n.toLowerCase())){
-      state.players.push({id:uid(),name:n,drink:0,give:0,fulfilled:0,caught:0,curseUsed:false});
-    }
-    render();
-  }
+document.addEventListener("submit", e => {
+  if(e.target.dataset.form !== "add") return;
+  e.preventDefault();
+  const n = document.getElementById("newName").value.trim();
+  if(n && !state.players.some(p => p.name.toLowerCase() === n.toLowerCase())) state.players.push(resetPlayer({id:uid(), name:n}));
+  render();
 });
-
-document.addEventListener("click", e=>{
+document.addEventListener("click", e => {
   const b = e.target.closest("[data-act]"); if(!b) return;
   const a = b.dataset.act, id = b.dataset.id;
   switch(a){
-    case "rm": state.players = state.players.filter(p=>p.id!==id); render(); break;
-    case "per": state.perPlayer = +b.dataset.n; render(); break;
-    case "start": state.phase="write"; state.writer=0; state.prophecies=[]; go({view:null}); break;
+    case "rm": state.players = state.players.filter(p => p.id !== id); render(); break;
+    case "interval": state.interval = +b.dataset.n; render(); break;
+    case "sips": state.sips = +b.dataset.n; render(); break;
+    case "curses": state.cursesOn = b.dataset.v === "1"; render(); break;
+    case "start": if(state.players.length >= 3) startWriteRound(); break;
     case "iam": go({view:"form"}); break;
-    case "idea": {
-      const i = b.dataset.i; const sel = document.getElementById("t"+i);
-      const n = P(sel.value).name; const others = state.players.filter(p=>p.id!==sel.value);
-      const p2 = others[Math.floor(Math.random()*others.length)].name;
-      const t = IDEAS[Math.floor(Math.random()*IDEAS.length)].replace("{n}",n).replace("{p}",p2);
-      document.getElementById("x"+i).value = t; break;
-    }
-    case "savewrite": {
-      const me = state.players[state.writer]; const items = [];
-      for(let i=0;i<state.perPlayer;i++){
-        const t = document.getElementById("x"+i).value.trim();
-        if(!t){ document.getElementById("werr").textContent = `Prophezeiung ${i+1} ist noch leer.`; return; }
-        items.push({id:uid(),author:me.id,target:document.getElementById("t"+i).value,text:t,status:"open"});
+    case "idea": { const t = P(document.getElementById("tSel").value); if(t) document.getElementById("xTxt").value = rnd(IDEAS).replace("{n}", t.name); break; }
+    case "seal": {
+      const w = state.write, writer = w.order[w.idx];
+      const target = document.getElementById("tSel").value, text = document.getElementById("xTxt").value.trim();
+      if(!text){ document.getElementById("werr").textContent = "Die Prophezeiung ist noch leer."; document.getElementById("xTxt").focus(); return; }
+      state.prophecies.push({id:uid(), author:writer, target, text, round:state.round, hits:0, status:"active"});
+      w.taken.push(target); w.idx++;
+      if(w.idx >= w.order.length){
+        state.write = null; state.phase = "play";
+        state.nextAt = state.interval ? Date.now() + state.interval*60000 : null;
+        addLog(state.round === 1 ? "Alle Prophezeiungen sind versiegelt. Das Orakel wacht." : `Runde ${state.round}: neue Prophezeiungen sind im Spiel.`);
       }
-      state.prophecies.push(...items); state.writer++;
-      if(state.writer>=state.players.length){ state.phase="table"; addLog("Alle Prophezeiungen sind versiegelt. Der Abend beginnt."); }
       go({view:null}); break;
     }
-    case "orakel": go({view:"o-who"}); break;
-    case "o-pick": go({view:"o-hand",who:id}); break;
-    case "o-iam": go({view:"o-list",who:ui.who}); break;
-    case "o-sel": go({view:"o-read",who:ui.who,pid:id}); break;
-    case "o-tovote": go({view:"o-vote",who:ui.who,pid:ui.pid}); break;
-    case "o-yes": {
-      const x = state.prophecies.find(y=>y.id===ui.pid); x.status="done";
-      const au=P(x.author), tg=P(x.target); tg.drink+=2; au.fulfilled++;
-      addLog(`<b>${esc(au.name)}</b> hat richtig prophezeit: „${esc(x.text)}“ ${esc(tg.name)} trinkt 2.`);
-      const head = `<p class="label">Die Prophezeiung erfüllt sich</p><p class="quote">${esc(tg.name)} trinkt 2</p>`;
-      if(au.curseUsed){ au.give+=2; go({view:"o-result",msg:head+`<p class="give" style="margin-top:8px">${esc(au.name)} verteilt 2</p>`}); }
-      else go({view:"o-reward",who:au.id,head});
+    case "postpone": {
+      const w = state.write;
+      state.prophecies = state.prophecies.filter(x => x.round !== state.round);
+      state.round--; state.write = null; state.phase = "play"; state.nextAt = Date.now() + 10*60000;
+      if(w && w.idx) addLog("Die neue Runde wurde verschoben.");
+      go({view:null}); break;
+    }
+    case "newround": startWriteRound(); break;
+    case "orakel": go({view:"o-victim"}); break;
+    case "o-pick": go({view:"o-hide", victim:id}); break;
+    case "o-show": go({view:"o-show", victim:ui.victim}); break;
+    case "o-hit": {
+      const x = state.prophecies.find(y => y.id === id), v = P(x.target);
+      x.hits++; P(x.author).hits++; v.drink += state.sips;
+      addLog(`<b>${esc(v.name)}</b> musste trinken. Das Orakel schweigt.`);
+      go({view:"result", msg:`<p class="label">Das Orakel hat gesprochen</p><p class="quote">${esc(v.name)} trinkt ${state.sips}</p><p class="muted small" style="margin-top:10px">Warum? Das bleibt ein Geheimnis. Jetzt darf ${esc(v.name)} wieder hinschauen.</p>`});
       break;
     }
-    case "o-no": go({view:"o-result",msg:`<p class="label">Die Gruppe hat gesprochen</p><p class="quote">Zählt nicht</p><p class="muted small" style="margin-top:8px">Die Prophezeiung bleibt geheim und offen.</p>`}); break;
-    case "durch": go({view:"d-acc"}); break;
-    case "d-acc-sel": go({view:"d-sus",acc:id}); break;
-    case "d-sus-sel": {
-      const has = state.prophecies.some(x=>x.author===id && x.status==="open");
-      if(!has){ go({view:"d-result",msg:`<p class="label">Leere Kugel</p><p class="quote">${name(id)} hat keine offenen Prophezeiungen</p><p class="muted small" style="margin-top:8px">Niemand trinkt.</p>`}); break; }
-      go({view:"d-say",acc:ui.acc,sus:id}); break;
+    case "guess": go({view:"g-victim"}); break;
+    case "g-pick": go({view:"g-say", victim:id}); break;
+    case "g-show": go({view:"g-show", victim:ui.victim}); break;
+    case "g-right": {
+      const x = state.prophecies.find(y => y.id === id), v = P(x.target), au = P(x.author);
+      x.status = "solved"; v.solved++; au.drink += 3;
+      addLog(`<b>${esc(v.name)}</b> hat es erraten: „${esc(x.text)}“ ${esc(au.name)} trinkt 3.`);
+      go({view:"result", msg:`<p class="label">${esc(v.name)} hat das Orakel durchschaut</p><p class="quote">„${esc(x.text)}“</p><p class="drink" style="margin-top:10px">Prophezeit von ${esc(au.name)}: trinkt 3</p><p class="muted small" style="margin-top:6px">Die Prophezeiung ist gebrochen. ${x.hits}× hat sie zugeschlagen.</p>`});
+      break;
     }
-    case "d-iam": go({view:"d-check",acc:ui.acc,sus:ui.sus}); break;
-    case "d-hit": {
-      const x = state.prophecies.find(y=>y.id===id); x.status="burned";
-      const s=P(ui.sus), c=P(ui.acc); s.drink+=3; c.caught++;
-      addLog(`<b>${esc(c.name)}</b> hat ${esc(s.name)} durchschaut: „${esc(x.text)}“ ${esc(s.name)} trinkt 3.`);
-      go({view:"d-result",msg:`<p class="label">Durchschaut! Die Prophezeiung verbrennt</p><p class="quote">„${esc(x.text)}“</p><p class="drink" style="margin-top:8px">${esc(s.name)} trinkt 3</p>`}); break;
+    case "g-wrong": {
+      const v = P(ui.victim); v.drink += 1;
+      addLog(`<b>${esc(v.name)}</b> hat falsch geraten und trinkt 1.`);
+      go({view:"result", msg:`<p class="label">Daneben</p><p class="quote">${esc(v.name)} trinkt 1</p><p class="muted small" style="margin-top:10px">Das Orakel bleibt im Verborgenen.</p>`});
+      break;
     }
-    case "d-miss": {
-      const c=P(ui.acc), s=P(ui.sus); c.drink+=1;
-      addLog(`<b>${esc(c.name)}</b> hat ${esc(s.name)} falsch verdächtigt und trinkt 1.`);
-      go({view:"d-result",msg:`<p class="label">Falscher Verdacht</p><p class="quote">${esc(c.name)} trinkt 1</p>`}); break;
-    }
-    case "askend": go({view:"askend"}); break;
-    case "askreset": go({view:"askreset"}); break;
-    case "rw-give": { const au=P(ui.who); au.give+=2; go({view:"o-result",msg:ui.head+`<p class="give" style="margin-top:8px">${esc(au.name)} verteilt 2</p>`}); break; }
-    case "rw-curse": go({view:"c-choose",who:ui.who,head:ui.head,opts:drawCurses()}); break;
-    case "c-pick": { const i=+b.dataset.i; if(CURSES[i].t==="player") go({...ui,view:"c-target",ci:i}); else activateCurse(i,null); break; }
-    case "c-tgt": activateCurse(ui.ci,id); break;
-    case "c-back": go({...ui,view:"c-choose"}); break;
+    case "curse": go({view:"c-who"}); break;
+    case "c-caster": go({view:"c-choose", caster:id, opts:drawCurses()}); break;
+    case "c-pick": { const i = +b.dataset.i; if(CURSES[i].t === "player") go({...ui, view:"c-target", ci:i}); else castCurse(i, null); break; }
+    case "c-tgt": castCurse(ui.ci, id); break;
+    case "c-again": go({...ui, view:"c-choose"}); break;
     case "c-broke": {
-      const c = state.curses.find(x=>x.id===id); if(!c) break;
-      if(c.t==="player" && P(c.target)){ P(c.target).drink+=1; addLog(`<b>${name(c.target)}</b> hat den Fluch gebrochen und trinkt 1.`); render(); }
-      else go({view:"c-break",cid:id});
+      const c = state.curses.find(x => x.id === id); if(!c) break;
+      if(c.t === "player" && P(c.target)){ P(c.target).drink++; addLog(`<b>${name(c.target)}</b> hat den Fluch gebrochen und trinkt 1.`); render(); }
+      else go({view:"c-break", cid:id});
       break;
     }
-    case "c-breaker": P(id).drink+=1; addLog(`<b>${name(id)}</b> hat den Fluch gebrochen und trinkt 1.`); go({view:null}); break;
-    case "c-lift": { const c = state.curses.find(x=>x.id===id); state.curses = state.curses.filter(x=>x.id!==id); if(c) addLog(`Fluch aufgehoben: „${esc(c.text)}“`); render(); break; }
-    case "end": {
-      state.prophecies.filter(x=>x.status==="open").forEach(x=>P(x.author).drink++);
-      state.phase="end"; go({view:null}); break;
-    }
-    case "again": {
-      state.players.forEach(p=>Object.assign(p,{drink:0,give:0,fulfilled:0,caught:0,curseUsed:false}));
-      state.prophecies=[]; state.log=[]; state.curses=[]; state.usedCurses=[]; state.phase="write"; state.writer=0; go({view:null}); break;
-    }
-    case "reset": state = fresh(); go({view:null}); break;
-    case "back": go({view:null}); break;
+    case "c-breaker": P(id).drink++; addLog(`<b>${name(id)}</b> hat einen Fluch gebrochen und trinkt 1.`); go({view:null}); break;
+    case "c-lift": { const c = state.curses.find(x => x.id === id); state.curses = state.curses.filter(x => x.id !== id); if(c) addLog(`Fluch aufgehoben: „${esc(c.text)}“`); render(); break; }
+    case "askend": go({view:"askend"}); break;
+    case "end": state.phase = "end"; state.write = null; go({view:null}); break;
+    case "askreset": go({view:"askreset"}); break;
+    case "again": { const ps = state.players.map(p => resetPlayer({id:p.id, name:p.name})); const s = fresh(ps); s.interval = state.interval; s.sips = state.sips; s.cursesOn = state.cursesOn; state = s; startWriteRound(); break; }
+    case "reset": { const s = fresh([]); s.interval = state.interval; s.sips = state.sips; s.cursesOn = state.cursesOn; state = s; go({view:null}); break; }
+    case "back": go({view: state.phase === "write" ? null : null}); break;
   }
 });
+setInterval(() => { if(state && state.phase === "play" && !ui.view) render(); }, 20000);
 
 function start(data){
   state = (data && data.state) || load() || fresh();
-  state.curses = state.curses || []; state.usedCurses = state.usedCurses || [];
-  state.players.forEach(p=>{ if(p.curseUsed===undefined) p.curseUsed=false; });
   if(data && data.ui) ui = data.ui;
   render();
 }
-setInterval(()=>{ if(state && state.phase==="table" && !ui.view && state.curses.length) render(); }, 30000);
 window.claude?.hot?.snapshot?.(() => ({state, ui}));
 window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
 </script>
