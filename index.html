@@ -142,11 +142,11 @@ const BALL = `<svg viewBox="0 0 120 132" aria-hidden="true">
 /* Gewohnheiten statt einmaliger Ereignisse: so schlägt das Orakel immer wieder zu */
 const IDEAS = [
  "{n} sagt „genau“.","{n} fasst sich ins Gesicht oder in die Haare.","{n} lacht über den eigenen Witz.","{n} schaut aufs Handy.",
- "{n} sagt „eigentlich“.","{n} fängt einen Satz mit „Also“ an.","{n} trinkt, ohne dass jemand anstößt.","{n} verschränkt die Arme.",
+ "{n} sagt „eigentlich“.","{n} fängt einen Satz mit „Also“ an.","{n} seufzt.","{n} verschränkt die Arme.",
  "{n} sagt „Alter“.","{n} fragt „Was?“ oder „Hä?“.","{n} stellt eine Frage an die ganze Runde.","{n} benutzt ein englisches Wort.",
  "{n} lehnt sich zurück.","{n} nennt jemanden beim Namen.","{n} redet über Essen.","{n} steht auf.","{n} gähnt.",
- "{n} zeigt mit dem Finger auf jemanden.","{n} sagt „Prost“.","{n} lacht laut los.","{n} flucht.","{n} sagt „krass“.",
- "{n} korrigiert jemanden.","{n} erzählt von der Arbeit.","{n} spielt mit dem Glas oder der Flasche.","{n} sagt „ja, ja“.",
+ "{n} zeigt mit dem Finger auf jemanden.","{n} sagt „übrigens“.","{n} lacht laut los.","{n} flucht.","{n} sagt „krass“.",
+ "{n} korrigiert jemanden.","{n} erzählt von der Arbeit.","{n} spielt mit etwas in der Hand herum.","{n} sagt „ja, ja“.",
  "{n} stützt den Kopf auf die Hand.","{n} unterbricht jemanden.","{n} sagt „weißt du“.","{n} kratzt sich.",
  "{n} macht ein Geräusch statt eines Wortes, etwa „pfff“.","{n} wiederholt, was jemand gerade gesagt hat.","{n} lobt etwas oder jemanden.",
  "{n} schaut auf die Uhr.","{n} sagt „nee“.","{n} zieht die Augenbrauen hoch.","{n} sagt „Moment“ oder „warte“.","{n} nimmt sich etwas zu essen.",
@@ -154,7 +154,7 @@ const IDEAS = [
 ];
 
 const CURSES = [
- {t:"player",d:60,x:"{n} darf nur noch mit links trinken."},
+ {t:"player",d:60,x:"{n} darf nur noch die linke Hand benutzen."},
  {t:"player",d:10,x:"{n} darf nicht lachen."},
  {t:"player",d:10,x:"{n} muss lispeln."},
  {t:"player",d:60,x:"{n} darf keine Namen nennen."},
@@ -167,17 +167,17 @@ const CURSES = [
  {t:"player",d:10,x:"{n} darf nur noch flüstern."},
  {t:"player",d:30,x:"{n} redet nur noch in der dritten Person von sich."},
  {t:"player",d:30,x:"{n} darf auf Fragen nicht mit Ja oder Nein antworten."},
- {t:"player",d:0,x:"{n} trinkt nur noch mit abgespreiztem kleinen Finger."},
- {t:"player",d:60,x:"{n} ist der Mundschenk und schenkt allen nach."},
+ {t:"player",d:0,x:"{n} hält alles nur noch mit abgespreiztem kleinen Finger."},
+ {t:"player",d:60,x:"{n} ist der Butler und bringt allen, was sie brauchen."},
  {t:"player",d:10,x:"{n} beantwortet jede Frage mit einer Gegenfrage."},
  {t:"player",d:30,x:"{n} darf das Handy nicht anfassen, außer fürs Orakel."},
- {t:"player",d:60,x:"{n} muss bei jedem Anstoßen einen Trinkspruch sagen."},
+ {t:"player",d:60,x:"{n} muss jede Geschichte mit einer Moral beenden."},
  {t:"player",d:10,x:"{n} redet mit einem Akzent, den die Gruppe aussucht."},
  {t:"player",d:10,x:"{n} darf sich nicht hinsetzen."},
- {t:"player",d:30,x:"{n} applaudiert jedes Mal, wenn jemand trinkt."},
+ {t:"player",d:30,x:"{n} applaudiert jedes Mal, wenn jemand aufsteht."},
  {t:"player",d:10,x:"{n} darf beim Reden keine Zähne zeigen."},
  {t:"player",d:10,x:"{n} beantwortet Fragen nur noch singend."},
- {t:"player",d:0,x:"{n} sagt vor jedem Schluck „Auf das Orakel!“."},
+ {t:"player",d:0,x:"{n} verbeugt sich vor jeder Wortmeldung."},
  {t:"player",d:10,x:"{n} muss beim Reden eine Hand auf dem Kopf haben."},
  {t:"player",d:30,x:"{n} darf nicht „ja“ sagen."},
  {t:"player",d:10,x:"{n} muss jede Aussage mit einem Reim beenden."},
@@ -187,7 +187,7 @@ const CURSES = [
  {t:"player",d:10,x:"{n} redet wie ein Pirat."},
  {t:"player",d:30,x:"{n} darf weder „äh“ noch „ähm“ sagen."},
  {t:"player",d:0,x:"{n} bekommt von der Gruppe einen Spitznamen, den alle benutzen müssen."},
- {t:"player",d:30,x:"{n} macht der Person links bei jedem eigenen Schluck ein Kompliment."},
+ {t:"player",d:30,x:"{n} macht der Person links jedes Mal ein Kompliment, wenn {n} aufsteht."},
  {t:"player",d:10,x:"{n} darf nur noch in Sätzen mit höchstens drei Wörtern reden."},
  {t:"player",d:30,x:"{n} muss jedes Mal salutieren, wenn jemand den eigenen Namen sagt."},
  {t:"player",d:10,x:"{n} darf nicht blinzeln, während jemand mit {n} redet. Versuchen muss reichen."},
@@ -196,56 +196,57 @@ const CURSES = [
  {t:"player",d:10,x:"{n} muss wie ein Kind über alles staunen."},
  {t:"group",d:10,x:"Niemand darf lachen."},
  {t:"group",d:30,x:"Keiner darf Namen nennen."},
- {t:"group",d:60,x:"Alle trinken nur noch mit links."},
+ {t:"group",d:60,x:"Alle benutzen nur noch die linke Hand."},
  {t:"group",d:10,x:"Alle müssen lispeln."},
- {t:"group",d:60,x:"Das Wort „trinken“ ist verboten."},
+ {t:"group",d:60,x:"Das Wort „nein“ ist verboten."},
  {t:"group",d:30,x:"Alle sprechen sich nur noch mit Nachnamen an."},
  {t:"group",d:30,x:"Niemand darf aufs Handy schauen, außer fürs Orakel."},
  {t:"group",d:10,x:"Alle reden wie Roboter."},
  {t:"group",d:10,x:"Jeder Satz muss mit „Also“ beginnen."},
  {t:"group",d:60,x:"Keine Ellenbogen auf dem Tisch."},
- {t:"group",d:0,x:"Legt jemand den Finger an die Nase, müssen alle nachziehen. Wer zuletzt ist, trinkt 1."},
+ {t:"group",d:0,x:"Legt jemand den Finger an die Nase, müssen alle nachziehen. Wer zuletzt ist, hat den Fluch gebrochen."},
  {t:"group",d:10,x:"Das Wort „ja“ ist verboten."},
  {t:"group",d:10,x:"Alle sprechen nur noch Englisch."},
- {t:"group",d:0,x:"Wer etwas verschüttet, trinkt 2."},
+ {t:"group",d:0,x:"Wer etwas fallen lässt, hat den Fluch gebrochen."},
  {t:"group",d:60,x:"Mit dem Finger zeigen ist verboten."},
  {t:"group",d:30,x:"Alle siezen sich."},
- {t:"group",d:0,x:"Beim Anstoßen ist Augenkontakt Pflicht."},
- {t:"group",d:0,x:"Legt jemand den Daumen auf den Tisch, müssen alle nachziehen. Wer zuletzt ist, trinkt 1."},
- {t:"group",d:10,x:"Alle trinken nur noch im Stehen."},
+ {t:"group",d:30,x:"Beim Reden ist Augenkontakt Pflicht."},
+ {t:"group",d:0,x:"Legt jemand den Daumen auf den Tisch, müssen alle nachziehen. Wer zuletzt ist, hat den Fluch gebrochen."},
+ {t:"group",d:10,x:"Alle reden nur noch im Stehen."},
  {t:"group",d:10,x:"Wer reden will, hebt vorher die Hand."},
  {t:"group",d:10,x:"Niemand darf „ich“ sagen."},
  {t:"group",d:10,x:"Alle dürfen nur noch flüstern."},
- {t:"group",d:60,x:"Wer gähnt, trinkt 1."},
+ {t:"group",d:60,x:"Gähnen ist verboten."},
  {t:"group",d:30,x:"Jeder spricht die Person rechts mit „Mein Schatz“ an."},
  {t:"group",d:60,x:"Niemand darf über die Arbeit reden."},
  {t:"group",d:10,x:"Alle reden mit tiefer Stimme."},
- {t:"group",d:30,x:"Vor jedem Schluck wird das Glas kurz Richtung Himmel gehoben."},
- {t:"group",d:10,x:"Wer zuerst „Orakel“ sagt, ohne etwas aufzudecken, trinkt 1."},
+ {t:"group",d:30,x:"Wer etwas sagen will, schnippt vorher."},
+ {t:"group",d:10,x:"Alle reden nur noch in Fragen."},
  {t:"group",d:30,x:"Alle müssen „Bitte“ und „Danke“ übertrieben höflich sagen."},
  {t:"evening",d:60,x:"Es läuft nur noch Musik aus den 90ern."},
  {t:"evening",d:60,x:"Es läuft nur noch deutsche Musik."},
- {t:"evening",d:30,x:"Bei jedem neuen Song stoßen alle an."},
+ {t:"evening",d:30,x:"Bei jedem neuen Song klatschen alle einmal."},
  {t:"evening",d:60,x:"Das Deckenlicht bleibt aus."},
  {t:"evening",d:0,x:"Wer den Raum verlässt, verbeugt sich beim Zurückkommen."},
  {t:"evening",d:60,x:"Wer durch die Tür geht, sagt laut „Ich kehre zurück“."},
- {t:"evening",d:0,x:"Die Gruppe bestimmt einen Gegenstand als Orakel-Schrein. Wer ihn berührt, trinkt 1."},
+ {t:"evening",d:0,x:"Die Gruppe bestimmt einen Gegenstand als Orakel-Schrein. Wer ihn berührt, hat den Fluch gebrochen."},
  {t:"evening",d:60,x:"Die Musik wählt alle 10 Minuten jemand anderes, reihum."},
  {t:"evening",d:60,x:"Die Gruppe legt ein Motto fest. Jeder muss es einmal in einen Satz einbauen."},
- {t:"evening",d:0,x:"Zu jeder vollen Stunde stoßen alle auf das Orakel an."},
+ {t:"evening",d:0,x:"Zu jeder vollen Stunde verneigen sich alle vor dem Orakel."},
  {t:"evening",d:60,x:"Der Boden ist Lava: Nichts darf auf dem Boden abgestellt werden."},
- {t:"evening",d:0,x:"Kein Song darf zweimal laufen. Wer ihn trotzdem spielt, trinkt 1."},
+ {t:"evening",d:0,x:"Kein Song darf zweimal laufen. Wer ihn trotzdem spielt, hat den Fluch gebrochen."},
  {t:"evening",d:0,x:"Die nächste Snackrunde holt die jüngste Person."},
  {t:"evening",d:0,x:"Jeder Rückkehrer wird begrüßt, als wäre er jahrelang weg gewesen."},
  {t:"evening",d:30,x:"Läuft ein Lied, das jemand mitsingen kann, muss diese Person aufstehen und mitsingen."},
- {t:"evening",d:30,x:"Gläser dürfen nur noch in der Mitte des Tisches stehen."},
- {t:"evening",d:60,x:"Jeder Trinkspruch muss sich reimen."},
- {t:"evening",d:30,x:"Alle 10 Minuten gibt es eine Schweigeminute. Wer redet, trinkt 1."},
+ {t:"evening",d:30,x:"Handys liegen nur noch in der Mitte des Tisches."},
+ {t:"evening",d:60,x:"Jede Ansage an die ganze Runde muss sich reimen."},
+ {t:"evening",d:30,x:"Alle 10 Minuten gibt es eine Schweigeminute. Wer redet, hat den Fluch gebrochen."},
  {t:"evening",d:60,x:"Wer aufsteht, muss sich vorher ankündigen."},
  {t:"evening",d:0,x:"Die Gruppe wählt einen Song als Hymne. Läuft er, stehen alle auf."}
 ];
 const TYPE = {player:"Spieler", group:"Ganze Gruppe", evening:"Der Abend"};
 const durLabel = d => d ? `${d} Min` : "bis Spielende";
+const pts = n => n === 1 ? "1 Pechpunkt" : `${n} Pechpunkte`;
 
 let state, ui = {view:null};
 const KEY = "orakel-v2";
@@ -317,13 +318,13 @@ function vSetup(){
     <h3>Neue Prophezeiungen</h3>
     <p class="small muted">So oft verteilt das Orakel eine neue Runde. Die alten bleiben aktiv.</p>
     <div class="seg">${INTERVALS.map(n => `<button data-act="interval" data-n="${n}" aria-pressed="${state.interval === n}">${n ? n + " Min" : "Aus"}</button>`).join("")}</div>
-    <h3 style="margin-top:6px">Schlucke pro Treffer</h3>
+    <h3 style="margin-top:6px">Pechpunkte pro Treffer</h3>
     <div class="seg">${[1,2].map(n => `<button data-act="sips" data-n="${n}" aria-pressed="${state.sips === n}">${n}</button>`).join("")}</div>
     <h3 style="margin-top:6px">Flüche</h3>
     <div class="seg"><button data-act="curses" data-v="1" aria-pressed="${state.cursesOn}">An</button><button data-act="curses" data-v="0" aria-pressed="${!state.cursesOn}">Aus</button></div>
   </div>
   <div class="panel small muted">
-    <p><b style="color:var(--parchment)">So geht's:</b> Jeder schreibt geheim eine Prophezeiung über ein Opfer seiner Wahl, am besten eine Gewohnheit wie „sagt ‚genau‘“. Passiert es, ruft jemand „Orakel!“. Das Opfer schaut weg, die anderen bestätigen auf dem Handy, und das Opfer trinkt, ohne zu wissen, warum. Die Prophezeiung bleibt aktiv. Wer sein Muster erkannt hat, ruft „Durchschaut!“: Liegt er richtig, trinkt der Prophet 3. Jeder falsche Tipp kostet einen Schluck mehr als der letzte.</p>
+    <p><b style="color:var(--parchment)">So geht's:</b> Jeder schreibt geheim eine Prophezeiung über ein Opfer seiner Wahl, am besten eine Gewohnheit wie „sagt ‚genau‘“. Passiert es, ruft jemand „Orakel!“. Das Opfer schaut weg, die anderen bestätigen auf dem Handy, und das Opfer bekommt einen Pechpunkt, ohne zu wissen, warum. Die Prophezeiung bleibt aktiv. Wer sein Muster erkannt hat, ruft „Durchschaut!“: Liegt er richtig, bekommt der Prophet 3 Pechpunkte. Jeder falsche Tipp kostet einen Punkt mehr als der letzte. Am Ende gewinnt, wer die wenigsten Pechpunkte hat.</p>
   </div>
   <button class="btn big" data-act="start" ${ps.length < 3 ? "disabled" : ""}>Prophezeiungen schreiben</button>`;
 }
@@ -362,7 +363,7 @@ function timerBox(){
 function cursesPanel(){
   if(!state.curses.length) return "";
   const now = Date.now();
-  return `<div class="panel" style="border-color:#5b3f86"><div class="row between"><h3 style="color:var(--curse)">Aktive Flüche</h3><span class="small muted">Brechen kostet 1 Schluck</span></div>
+  return `<div class="panel" style="border-color:#5b3f86"><div class="row between"><h3 style="color:var(--curse)">Aktive Flüche</h3><span class="small muted">Brechen kostet 1 Pechpunkt</span></div>
   ${state.curses.map(c => `<div class="curse-box"><div class="curse-meta"><span>${TYPE[c.t]}</span><span>${c.until ? `noch ${Math.max(1, Math.ceil((c.until - now)/60000))} Min` : "bis Spielende"}</span></div><p>${esc(c.text)}</p><div class="row"><button class="ghost btn-sm" data-act="c-broke" data-id="${c.id}">Gebrochen</button><button class="ghost btn-sm" data-act="c-lift" data-id="${c.id}">Aufheben</button></div></div>`).join("")}</div>`;
 }
 const penalty = v => (v.wrong || 0) + 1;
@@ -383,9 +384,9 @@ function vTable(){
   ${state.cursesOn ? `<button class="btn b-curse" data-act="curse" ${casters.length ? "" : "disabled"}>${casters.length ? "Fluch aussprechen" : "Fluch: erst nach dem ersten Treffer"}</button>` : ""}
   ${cursesPanel()}
   <div class="panel">
-    <div class="row between"><h3>Schluck-Konto</h3><span class="small muted">${active().length} Prophezeiungen aktiv</span></div>
+    <div class="row between"><h3>Spielstand</h3><span class="small muted">${active().length} Prophezeiungen aktiv</span></div>
     <div class="board">
-      <div class="line head"><span>Name</span><span class="num">Getrunken</span><span class="num">Treffer</span><span class="num">Erraten</span></div>
+      <div class="line head"><span>Name</span><span class="num">Pech</span><span class="num">Treffer</span><span class="num">Erraten</span></div>
       ${state.players.map(p => `<div class="line"><span>${esc(p.name)}</span><span class="num drink">${p.drink}</span><span class="num give">${p.hits}</span><span class="num">${p.solved}</span></div>`).join("")}
     </div>
     <p class="small muted">Treffer: wie oft die eigenen Prophezeiungen zugeschlagen haben.</p>
@@ -418,7 +419,7 @@ function vFlow(){
     <div class="grid2"><button class="btn big" data-act="o-hit" data-id="${sel || ""}" ${sel ? "" : "disabled"}>Zählt</button><button class="ghost big" data-act="back">Zählt nicht</button></div>`;
   }
   if(v === "g-victim") return pickVictims("Wer ruft „Durchschaut!“?", "g-pick");
-  if(v === "g-say") return `${hero(true)}<div class="reveal"><p class="label">${esc(victim.name)}</p><p class="quote">Was steckt hinter deinem Orakel?</p><p class="muted small" style="margin-top:10px">Sag dein Muster laut. Danach schaust du weg, und die anderen entscheiden auf dem Handy.</p><p class="drink" style="margin-top:8px">Ein falscher Tipp kostet dich ${penalty(victim)} ${penalty(victim) === 1 ? "Schluck" : "Schlucke"}.</p></div>
+  if(v === "g-say") return `${hero(true)}<div class="reveal"><p class="label">${esc(victim.name)}</p><p class="quote">Was steckt hinter deinem Orakel?</p><p class="muted small" style="margin-top:10px">Sag dein Muster laut. Danach schaust du weg, und die anderen entscheiden auf dem Handy.</p><p class="drink" style="margin-top:8px">Ein falscher Tipp kostet dich ${pts(penalty(victim))}.</p></div>
     <button class="btn big" data-act="g-show">Gesagt. ${esc(victim.name)} schaut weg</button>
     <button class="ghost" data-act="back">Abbrechen</button>`;
   if(v === "g-show") return `${hero(true)}<p class="secret">Nur für alle außer ${esc(victim.name)}.</p><h2>Hat ${esc(victim.name)} eine davon erraten?</h2>
@@ -447,25 +448,28 @@ function vEnd(){
   const best = key => { const m = Math.max(...ps.map(key)); if(m <= 0) return "niemand"; return ps.filter(p => key(p) === m).map(p => esc(p.name)).join(", ") + ` (${m})`; };
   const hitOn = p => all.filter(x => x.target === p.id).reduce((s,x) => s + x.hits, 0);
   const sorted = all.slice().sort((a,b) => b.hits - a.hits);
+  const winner = () => { const m = Math.min(...ps.map(p => p.drink)); return ps.filter(p => p.drink === m).map(p => esc(p.name)).join(", ") + ` (${pts(m)})`; };
+  const ranked = ps.slice().sort((a,b) => a.drink - b.drink || b.hits - a.hits);
   return `${hero()}
   <div class="panel"><h3>Die Ehrungen</h3>
+    <div class="award"><span>Sieger</span><span>${winner()}</span></div>
     <div class="award"><span>Orakel des Abends</span><span>${best(p => p.hits)}</span></div>
     <div class="award"><span>Ahnungslosestes Opfer</span><span>${best(hitOn)}</span></div>
     <div class="award"><span>Hellseher</span><span>${best(p => p.solved)}</span></div>
-    <div class="award"><span>Durstigste Seele</span><span>${best(p => p.drink)}</span></div>
+    <div class="award"><span>Größter Pechvogel</span><span>${best(p => p.drink)}</span></div>
   </div>
   <div class="panel"><h3>Alle Prophezeiungen</h3>
     ${sorted.length ? sorted.map(x => `<div class="prop"><span class="meta">${name(x.author)} über ${name(x.target)} · ${x.status === "solved" ? "erraten" : "nie erraten"}</span><span>${esc(x.text)}</span><span class="hits">${x.hits}× getroffen</span></div>`).join("") : `<p class="muted">Keine.</p>`}
   </div>
   <div class="panel"><h3>Endstand</h3>
-    <div class="board"><div class="line head"><span>Name</span><span class="num">Getrunken</span><span class="num">Treffer</span><span class="num">Erraten</span></div>
-    ${ps.map(p => `<div class="line"><span>${esc(p.name)}</span><span class="num drink">${p.drink}</span><span class="num give">${p.hits}</span><span class="num">${p.solved}</span></div>`).join("")}</div>
+    <div class="board"><div class="line head"><span>Name</span><span class="num">Pech</span><span class="num">Treffer</span><span class="num">Erraten</span></div>
+    ${ranked.map(p => `<div class="line"><span>${esc(p.name)}</span><span class="num drink">${p.drink}</span><span class="num give">${p.hits}</span><span class="num">${p.solved}</span></div>`).join("")}</div>
   </div>
   <button class="btn big" data-act="again">Neues Spiel, gleiche Runde</button>
   <button class="ghost" data-act="reset">Ganz neu anfangen</button>`;
 }
 function vReset(){
-  return `${hero(true)}<div class="reveal"><p class="quote">Spiel neu starten?</p><p class="muted small" style="margin-top:10px">Alle Prophezeiungen und Schlucke werden gelöscht. Das lässt sich nicht rückgängig machen.</p></div>
+  return `${hero(true)}<div class="reveal"><p class="quote">Spiel neu starten?</p><p class="muted small" style="margin-top:10px">Alle Prophezeiungen und Punkte werden gelöscht. Das lässt sich nicht rückgängig machen.</p></div>
   <div class="stack"><button class="btn" data-act="again">Neu starten, gleiche Leute</button><button class="ghost" data-act="reset">Komplett neu, Leute neu eintragen</button><button class="ghost" data-act="back">Abbrechen</button></div>`;
 }
 
@@ -545,8 +549,8 @@ document.addEventListener("click", e => {
     case "o-hit": {
       const x = state.prophecies.find(y => y.id === id), v = P(x.target);
       x.hits++; P(x.author).hits++; v.drink += state.sips;
-      addLog(`<b>${esc(v.name)}</b> musste trinken. Das Orakel schweigt.`);
-      go({view:"result", msg:`<p class="label">Das Orakel hat gesprochen</p><p class="quote">${esc(v.name)} trinkt ${state.sips}</p><p class="muted small" style="margin-top:10px">Warum? Das bleibt ein Geheimnis. Jetzt darf ${esc(v.name)} wieder hinschauen.</p>`});
+      addLog(`<b>${esc(v.name)}</b> bekommt ${pts(state.sips)}. Das Orakel schweigt.`);
+      go({view:"result", msg:`<p class="label">Das Orakel hat gesprochen</p><p class="quote">${esc(v.name)} bekommt ${pts(state.sips)}</p><p class="muted small" style="margin-top:10px">Warum? Das bleibt ein Geheimnis. Jetzt darf ${esc(v.name)} wieder hinschauen.</p>`});
       break;
     }
     case "guess": go({view:"g-victim"}); break;
@@ -555,14 +559,14 @@ document.addEventListener("click", e => {
     case "g-right": {
       const x = state.prophecies.find(y => y.id === id), v = P(x.target), au = P(x.author);
       x.status = "solved"; v.solved++; v.wrong = 0; au.drink += 3;
-      addLog(`<b>${esc(v.name)}</b> hat es erraten: „${esc(x.text)}“ ${esc(au.name)} trinkt 3.`);
-      go({view:"result", msg:`<p class="label">${esc(v.name)} hat das Orakel durchschaut</p><p class="quote">„${esc(x.text)}“</p><p class="drink" style="margin-top:10px">Prophezeit von ${esc(au.name)}: trinkt 3</p><p class="muted small" style="margin-top:6px">Die Prophezeiung ist gebrochen. ${x.hits}× hat sie zugeschlagen.</p>`});
+      addLog(`<b>${esc(v.name)}</b> hat es erraten: „${esc(x.text)}“ ${esc(au.name)} bekommt 3 Pechpunkte.`);
+      go({view:"result", msg:`<p class="label">${esc(v.name)} hat das Orakel durchschaut</p><p class="quote">„${esc(x.text)}“</p><p class="drink" style="margin-top:10px">Prophezeit von ${esc(au.name)}: 3 Pechpunkte</p><p class="muted small" style="margin-top:6px">Die Prophezeiung ist gebrochen. ${x.hits}× hat sie zugeschlagen.</p>`});
       break;
     }
     case "g-wrong": {
       const v = P(ui.victim), n = penalty(v); v.drink += n; v.wrong = (v.wrong || 0) + 1;
-      addLog(`<b>${esc(v.name)}</b> lag daneben und trinkt ${n}.`);
-      go({view:"result", msg:`<p class="label">Daneben</p><p class="quote">${esc(v.name)} trinkt ${n}</p><p class="muted small" style="margin-top:10px">Das Orakel bleibt im Verborgenen. Der nächste falsche Tipp kostet ${n + 1}.</p>`});
+      addLog(`<b>${esc(v.name)}</b> lag daneben und bekommt ${pts(n)}.`);
+      go({view:"result", msg:`<p class="label">Daneben</p><p class="quote">${esc(v.name)} bekommt ${pts(n)}</p><p class="muted small" style="margin-top:10px">Das Orakel bleibt im Verborgenen. Der nächste falsche Tipp kostet ${pts(n + 1)}.</p>`});
       break;
     }
     case "curse": go({view:"c-who"}); break;
@@ -572,11 +576,11 @@ document.addEventListener("click", e => {
     case "c-again": go({...ui, view:"c-choose"}); break;
     case "c-broke": {
       const c = state.curses.find(x => x.id === id); if(!c) break;
-      if(c.t === "player" && P(c.target)){ P(c.target).drink++; addLog(`<b>${name(c.target)}</b> hat den Fluch gebrochen und trinkt 1.`); render(); }
+      if(c.t === "player" && P(c.target)){ P(c.target).drink++; addLog(`<b>${name(c.target)}</b> hat den Fluch gebrochen: 1 Pechpunkt.`); render(); }
       else go({view:"c-break", cid:id});
       break;
     }
-    case "c-breaker": P(id).drink++; addLog(`<b>${name(id)}</b> hat einen Fluch gebrochen und trinkt 1.`); go({view:null}); break;
+    case "c-breaker": P(id).drink++; addLog(`<b>${name(id)}</b> hat einen Fluch gebrochen: 1 Pechpunkt.`); go({view:null}); break;
     case "c-lift": { const c = state.curses.find(x => x.id === id); state.curses = state.curses.filter(x => x.id !== id); if(c) addLog(`Fluch aufgehoben: „${esc(c.text)}“`); render(); break; }
     case "askend": go({view:"askend"}); break;
     case "end": state.phase = "end"; state.write = null; go({view:null}); break;

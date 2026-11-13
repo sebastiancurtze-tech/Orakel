@@ -1,7 +1,7 @@
 {
   "name": "Orakel",
   "short_name": "Orakel",
-  "description": "Prophezeie den Abend deiner Freunde.",
+  "description": "Das Partyspiel: Prophezeie den Abend deiner Freunde.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
